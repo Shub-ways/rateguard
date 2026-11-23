@@ -35,6 +35,31 @@ Maven 3.10.2, Spring Boot 4.1.3.
 | Packaged service starts in about 3.4 s on the laptop above | Measured (single run, informational only) | Spring Boot startup log |
 | `rateguard.decision` timer after 7 live requests: total 1.15 ms, max 0.94 ms (first, cold call) | Measured (7 samples, **not a benchmark**) | `/actuator/metrics/rateguard.decision` |
 
+## Milestone 4: distributed Redis backend (2026-11-24)
+
+### Verified without Docker
+
+| Fact | Type | Source |
+| --- | --- | --- |
+| 2 Redis-backed algorithms (fixed window, token bucket); sliding windows are explicitly refused with `backend=REDIS` | Design + Verified | `RateGuardConfigurationTest.redisBackend*` |
+| Backend chosen by configuration (`rateguard.backend`) through dependency injection; the `RateLimiter` interface is unchanged | Verified | `RateGuardConfigurationTest.redisBackendSelectsDistributedFixedWindowAndTokenBucket` |
+| `FAIL_CLOSED`: backend failure → 503 `rate_limiter_unavailable` + `Retry-After`, no quota headers, never a 429; health probes stay UP; invalid keys still get 401 | Verified | `FailurePolicyHttpTest$FailClosed` |
+| `FAIL_OPEN`: backend failure → request passes without quota headers; enforcement resumes from stored state on recovery | Verified | `FailurePolicyHttpTest$FailOpen` |
+| One WARN per outage and one INFO on recovery, no per-request log spam; API keys never logged; `fail_open`/`fail_closed` counters and `rateguard.backend.available` gauge | Verified | `FailurePolicyHttpTest` |
+| The original 94 tests still pass unchanged | Verified | `mvn clean test` |
+
+### Pending Docker (written, not yet run on this machine)
+
+None of the following may be quoted until the run is recorded here with date
+and command:
+
+- Redis limiters make identical decisions to the in-memory algorithms on 3,000 random requests (`RedisRateLimiterTest`)
+- 1,000 concurrent requests → exactly 100 accepted at limiter level, for fixed window (app clock and Redis clock) and token bucket (`RedisRateLimiterTest`)
+- 2 real app instances on one Redis: 1,000 concurrent HTTP requests → exactly 100 × 200 and 900 × 429, with no duplicate slots (`RedisMultiInstanceTest`)
+- Shared quota alternating A/B, independent clients, window expiry, token refill, invalid keys create no Redis state, key hashing and TTL (`RedisMultiInstanceTest`)
+- Redis down at startup, paused mid-traffic (timeouts), recovery with state preserved, `CLIENT KILL` reconnection (`RedisFailureModeTest`)
+- Docker Compose stack (Redis + app-a + app-b + nginx) enforcing one shared quota (`scripts/verify-shared-quota.ps1`)
+
 ## Not yet measured
 
 Throughput (requests/sec), p50/p95/p99 latency under load, memory per
