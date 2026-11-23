@@ -1,0 +1,5 @@
+# Local demonstration profile: one quota per client IP, no API key needed.
+# Run with: --spring.profiles.active=demo
+rateguard:
+  client-identification:
+    mode: IP
