@@ -1,0 +1,5 @@
+# Only the packaged application jar goes into the image build context.
+*
+!target/
+target/*
+!target/rateguard-service-*.jar
