@@ -10,7 +10,7 @@ active keys.
 ## Summary
 
 | Algorithm | Time / request | State per key | Accuracy | Worst-case burst |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | Fixed window | O(1) | window id + count | Exact per fixed window | **2L** within ~2 ms around a boundary |
 | Sliding-window log | amortized O(1) | up to L timestamps | Exact for any interval of length W | L |
 | Sliding-window counter | O(1) | 2 counts + window id + last seen | Approximate (assumes the previous window's traffic was spread evenly); never more than L per fixed window | Less than 2L; a full previous window blocks the start of the next |
@@ -53,7 +53,7 @@ than `L` stored timestamps fall in `(t - W, t]`.
 Keeps counts for the current and previous fixed windows and estimates the
 sliding-window count as
 
-```
+```text
 estimate = previous × (W − elapsed) / W + current
 ```
 
@@ -103,3 +103,6 @@ the time needed to fill the bucket, so long idle periods cannot overflow.
 - Hot-key contention: all requests for one key serialize on one bin lock. That
   is inherent to exact per-key counting; it will be quantified in the JMH
   milestone (single hot key vs. many keys).
+- The same guarantee holds end to end over HTTP: `ConcurrentHttpTest` sends
+  400 concurrent requests through Tomcat, and each accepted request receives
+  a distinct `X-RateLimit-Remaining` value.
