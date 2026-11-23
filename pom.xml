@@ -8,6 +8,8 @@
     <artifactId>rate-limiter</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>RateGuard</name>
+    <description>Rate-limiting algorithms with in-memory and distributed backends</description>
 
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
