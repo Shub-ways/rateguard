@@ -22,6 +22,7 @@
 
     <modules>
         <module>rateguard-core</module>
+        <module>rateguard-service</module>
     </modules>
 
     <properties>

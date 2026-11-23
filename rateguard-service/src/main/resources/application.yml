@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: rateguard
+
+server:
+  port: 8080
+  # Behind a trusted reverse proxy set this to "native" so the container derives
+  # the client IP from X-Forwarded-For. Never trust that header from clients directly.
+  forward-headers-strategy: none
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true   # /actuator/health/liveness and /actuator/health/readiness
+
+rateguard:
+  enabled: true
+  # FIXED_WINDOW | SLIDING_WINDOW_LOG | SLIDING_WINDOW_COUNTER | TOKEN_BUCKET
+  algorithm: FIXED_WINDOW
+  limit: 5
+  window: 60s
+  # Only used when algorithm = TOKEN_BUCKET. Unset values default to limit / limit / window.
+  # token-bucket:
+  #   capacity: 10        # max burst
+  #   refill-tokens: 1    # tokens added per refill-period (continuously, not in steps)
+  #   refill-period: 1s
+  protected-paths:
+    - /api/**
+  excluded-paths:
+    - /actuator/**
+  eviction-interval: 30s
+  client-identification:
+    # API_KEY (authenticated; missing/invalid key -> 401) | IP (local demos)
+    mode: API_KEY
+    api-key-header: X-API-Key
+    # Comma-separated. Supply real keys via the RATEGUARD_API_KEYS environment
+    # variable or a secret store; never commit them.
+    api-keys: ${RATEGUARD_API_KEYS:}
