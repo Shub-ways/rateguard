@@ -1,31 +1,27 @@
 package com.portfolio.ratelimiter.core;
 
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+import java.time.Clock;
+import java.time.Duration;
 import java.util.function.LongSupplier;
 
 /**
- * Fixed-window rate limiter: each client may make at most {@code limit}
- * requests per {@code windowMs}-aligned time window.
+ * Fixed-window counter: each key may make at most {@code limit} requests per
+ * epoch-aligned window of {@code windowMs}.
  *
- * <p>Thread-safe. Per-client state is updated atomically via
- * {@link ConcurrentHashMap#compute}, so concurrent requests can never
- * exceed the limit.
- *
- * <p>Known trade-off: a client can send up to {@code 2 * limit} requests
- * across a window boundary (end of one window + start of the next).
+ * <ul>
+ *   <li>Time per request: O(1). Space per key: O(1) (window id + count).</li>
+ *   <li>Burst: up to {@code 2 * limit} requests can pass within a few
+ *       milliseconds around a window boundary (end of one window + start of the
+ *       next). This is the algorithm's main weakness.</li>
+ * </ul>
  */
-public class FixedWindowRateLimiter {
+public final class FixedWindowRateLimiter extends InMemoryRateLimiter<FixedWindowRateLimiter.Window> {
 
     public static final int DEFAULT_LIMIT = 5;
     public static final long DEFAULT_WINDOW_MS = 60_000;
 
     private final int limit;
     private final long windowMs;
-    private final LongSupplier clock;
-
-    private final ConcurrentHashMap<String, ClientWindow> clients =
-            new ConcurrentHashMap<>();
 
     public FixedWindowRateLimiter() {
         this(DEFAULT_LIMIT, DEFAULT_WINDOW_MS, System::currentTimeMillis);
@@ -35,8 +31,13 @@ public class FixedWindowRateLimiter {
         this(limit, windowMs, System::currentTimeMillis);
     }
 
+    public FixedWindowRateLimiter(RateLimitPolicy policy, Clock clock) {
+        this(policy.limit(), policy.windowMillis(), millisOf(clock));
+    }
+
     /** @param clock source of current time in milliseconds (injectable for tests) */
     public FixedWindowRateLimiter(int limit, long windowMs, LongSupplier clock) {
+        super(clock);
         if (limit <= 0) {
             throw new IllegalArgumentException("limit must be > 0");
         }
@@ -45,58 +46,40 @@ public class FixedWindowRateLimiter {
         }
         this.limit = limit;
         this.windowMs = windowMs;
-        this.clock = Objects.requireNonNull(clock, "clock");
     }
 
-    /**
-     * Records a request for {@code clientId} and returns whether it is allowed.
-     */
-    public boolean allowRequest(String clientId) {
-        Objects.requireNonNull(clientId, "clientId");
-        long currentWindow = clock.getAsLong() / windowMs;
-
-        ClientWindow state = clients.compute(clientId, (id, old) -> {
-            // New client or new window: this request is #1.
-            if (old == null || old.windowId != currentWindow) {
-                return new ClientWindow(currentWindow, 1);
-            }
-            // Already rejected in this window: count stays capped at limit + 1.
-            if (old.count > limit) {
-                return old;
-            }
-            // Count this request; reaching limit + 1 marks it as rejected.
-            return new ClientWindow(currentWindow, old.count + 1);
-        });
-
-        // compute() is atomic per key, so `state` reflects exactly this call.
-        return state.count <= limit;
+    @Override
+    protected Window newState(long nowMillis) {
+        return new Window(nowMillis / windowMs);
     }
 
-    /**
-     * Removes entries belonging to past windows to bound memory usage.
-     * Call periodically (e.g. from a ScheduledExecutorService).
-     *
-     * @return number of entries removed
-     */
-    public int evictExpired() {
-        long currentWindow = clock.getAsLong() / windowMs;
-        int before = clients.size();
-        clients.values().removeIf(w -> w.windowId < currentWindow);
-        return Math.max(0, before - clients.size());
+    @Override
+    protected RateLimitResult acquire(Window window, long nowMillis) {
+        // Never move a key back to an older window, even if the clock does.
+        long current = Math.max(nowMillis / windowMs, window.id);
+        if (current != window.id) {
+            window.id = current;
+            window.count = 0;
+        }
+        if (window.count >= limit) {
+            long windowEnd = (window.id + 1) * windowMs;
+            return RateLimitResult.reject(limit, Duration.ofMillis(windowEnd - nowMillis));
+        }
+        window.count++;
+        return RateLimitResult.allow(limit, limit - window.count);
     }
 
-    /** Number of clients currently tracked (for monitoring/tests). */
-    public int trackedClients() {
-        return clients.size();
+    @Override
+    protected boolean isExpired(Window window, long nowMillis) {
+        return nowMillis / windowMs > window.id;
     }
 
-    private static final class ClientWindow {
-        final long windowId;
-        final int count;
+    static final class Window {
+        long id;
+        int count;
 
-        ClientWindow(long windowId, int count) {
-            this.windowId = windowId;
-            this.count = count;
+        Window(long id) {
+            this.id = id;
         }
     }
 }
