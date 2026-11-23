@@ -22,6 +22,7 @@
 
     <modules>
         <module>rateguard-core</module>
+        <module>rateguard-redis</module>
         <module>rateguard-service</module>
     </modules>
 
@@ -35,6 +36,11 @@
             <dependency>
                 <groupId>com.portfolio</groupId>
                 <artifactId>rateguard-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.portfolio</groupId>
+                <artifactId>rateguard-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
