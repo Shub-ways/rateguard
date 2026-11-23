@@ -9,6 +9,10 @@ import com.portfolio.ratelimiter.core.RateLimiter;
 import com.portfolio.ratelimiter.core.SlidingWindowCounterRateLimiter;
 import com.portfolio.ratelimiter.core.SlidingWindowLogRateLimiter;
 import com.portfolio.ratelimiter.core.TokenBucketRateLimiter;
+import com.portfolio.ratelimiter.redis.RedisFixedWindowRateLimiter;
+import com.portfolio.ratelimiter.redis.RedisTokenBucketRateLimiter;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import com.portfolio.ratelimiter.service.config.RateGuardConfiguration;
 import com.portfolio.ratelimiter.service.identity.ApiKeyClientIdentifier;
 import com.portfolio.ratelimiter.service.identity.ClientIdentifier;
@@ -108,6 +112,40 @@ class RateGuardConfigurationTest {
                         t = t.getCause();
                     }
                 });
+    }
+
+    @Test
+    void redisBackendSelectsDistributedFixedWindowAndTokenBucket() {
+        ApplicationContextRunner redisRunner = runner
+                .withBean(StringRedisTemplate.class, () -> new StringRedisTemplate(new LettuceConnectionFactory()))
+                .withPropertyValues("rateguard.backend=REDIS", "rateguard.client-identification.api-keys=k1");
+        redisRunner.withPropertyValues("rateguard.algorithm=FIXED_WINDOW")
+                .run(ctx -> assertThat(ctx.getBean(RateLimiter.class)).isInstanceOf(RedisFixedWindowRateLimiter.class));
+        redisRunner.withPropertyValues("rateguard.algorithm=TOKEN_BUCKET")
+                .run(ctx -> assertThat(ctx.getBean(RateLimiter.class)).isInstanceOf(RedisTokenBucketRateLimiter.class));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @EnumSource(value = Algorithm.class, names = {"SLIDING_WINDOW_LOG", "SLIDING_WINDOW_COUNTER"})
+    void redisBackendRefusesAlgorithmsItDoesNotImplement(Algorithm algorithm) {
+        runner.withBean(StringRedisTemplate.class, () -> new StringRedisTemplate(new LettuceConnectionFactory()))
+                .withPropertyValues("rateguard.backend=REDIS", "rateguard.algorithm=" + algorithm.name(),
+                        "rateguard.client-identification.api-keys=k1")
+                .run(ctx -> {
+                    assertThat(ctx).hasFailed();
+                    assertThat(ctx.getStartupFailure()).rootCause()
+                            .hasMessageContaining("not supported with rateguard.backend=REDIS");
+                });
+    }
+
+    @Test
+    void invalidRedisSettingsFailStartup() {
+        runner.withPropertyValues("rateguard.client-identification.mode=IP",
+                        "rateguard.redis.failure-mode=SOMETIMES")
+                .run(ctx -> assertThat(ctx).hasFailed());
+        runner.withPropertyValues("rateguard.client-identification.mode=IP",
+                        "rateguard.redis.unavailable-retry-after=0s")
+                .run(ctx -> assertThat(ctx).hasFailed());
     }
 
     @Test
