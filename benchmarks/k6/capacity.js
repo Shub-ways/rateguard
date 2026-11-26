@@ -2,7 +2,7 @@
 // One distinct API key per VU. The rate limit is configured high enough that
 // 429s should not occur; any that do are counted, never treated as success.
 //
-// Env: TARGET (base URL), VUS, DURATION, KEYS (comma list), SUMMARY_FILE, LABEL
+// Env: TARGET (base URL), VUS, DURATION, KEYS (';'-separated), SUMMARY_FILE, LABEL
 import http from 'k6/http';
 import { Counter } from 'k6/metrics';
 
@@ -12,7 +12,8 @@ const status503 = new Counter('status_503');
 const statusOther = new Counter('status_other');
 const networkErrors = new Counter('network_errors');
 
-const KEYS = (__ENV.KEYS || '').split(',').filter((k) => k.length > 0);
+// ';'-separated: k6 splits -e values on commas.
+const KEYS = (__ENV.KEYS || '').split(';').filter((k) => k.length > 0);
 const URL = `${__ENV.TARGET}/api/v1/demo/resource`;
 
 export const options = {

@@ -20,6 +20,7 @@ param(
     [int]$Trials = 3,
     [string]$Duration = '30s',
     [string]$Warmup = '15s',
+    [string]$StackWarmup = '60s',
     [int]$CorrectnessTrials = 3,
     [switch]$SkipCapacity,
     [switch]$SkipCorrectness,
@@ -50,11 +51,11 @@ $scenarioConfig = @{
 
 function Compose { & docker compose -f $compose @args }
 
-function Stack-Up([string]$profile, [string]$enabled, [string]$backend, [string]$limit, [string]$window) {
+function Stack-Up([string]$stackProfile, [string]$enabled, [string]$backend, [string]$limit, [string]$window) {
     $env:RG_ENABLED = $enabled; $env:RG_BACKEND = $backend; $env:RG_LIMIT = $limit; $env:RG_WINDOW = $window
     Compose --profile single --profile distributed down --remove-orphans *> $null
-    Compose --profile $profile up -d --wait --force-recreate *> (Join-Path $out "compose-up-$profile.log")
-    if ($LASTEXITCODE -ne 0) { throw "stack ($profile) failed to become healthy" }
+    Compose --profile $stackProfile up -d --wait --force-recreate *> (Join-Path $out "compose-up-$stackProfile.log")
+    if ($LASTEXITCODE -ne 0) { throw "stack ($stackProfile) failed to become healthy" }
 }
 
 function Stack-Down { Compose --profile single --profile distributed down --remove-orphans *> $null }
@@ -80,10 +81,46 @@ function Stop-StatsSampler($job, [string]$file) {
 }
 
 function Run-K6([string]$script, [hashtable]$vars, [string]$summaryRel, [string]$rawRel) {
-    $envArgs = @(); foreach ($k in $vars.Keys) { $envArgs += @('-e', "$k=$($vars[$k])") }
+    # GetEnumerator(), not .Keys: the hashtable has an entry named KEYS, and $vars.Keys would return
+    # that entry's value instead of the key collection (PowerShell member-access precedence).
+    $envArgs = @(); foreach ($e in $vars.GetEnumerator()) { $envArgs += @('-e', "$($e.Key)=$($e.Value)") }
     $extra = @(); if ($rawRel) { $extra = @('--out', "json=/results/$rawRel") }
-    Compose --profile tools run --rm -e "SUMMARY_FILE=/results/$summaryRel" @envArgs k6 run --quiet @extra "/scripts/$script" 2>&1 |
-        Where-Object { $_ -notmatch '^\s*$' } | ForEach-Object { "$_" }
+    # Variables go to k6 itself (-e after "run"): k6 1.x does not import container/system
+    # environment variables into __ENV by default (found by the smoke test).
+    # Only the last lines (the summary line and any final error) are echoed, so a flood of
+    # per-request warnings can never swamp the console.
+    Compose --profile tools run --rm k6 run --quiet -e "SUMMARY_FILE=/results/$summaryRel" @envArgs @extra "/scripts/$script" 2>&1 |
+        ForEach-Object { "$_" } | Where-Object { $_ -notmatch '^\s*$' -and $_ -notmatch 'Container .* (Creating|Created)' } |
+        Select-Object -Last 3
+}
+
+function App-Containers([string]$stackProfile) {
+    if ($stackProfile -eq 'distributed') { @('app-a', 'app-b') } else { @('app') }
+}
+
+# CFS throttling counters of each app container (cgroup v2 cpu.stat). Recorded around every
+# trial because the 2-CPU cap throttles the JVM and that shapes tail latency.
+function Cpu-Stat([string[]]$services) {
+    $r = @{}
+    foreach ($svc in $services) {
+        $lines = Compose exec -T $svc cat /sys/fs/cgroup/cpu.stat
+        $h = @{}; foreach ($l in $lines) { $p = "$l".Trim() -split '\s+'; if ($p.Count -eq 2) { $h[$p[0]] = [long]$p[1] } }
+        $r[$svc] = $h
+    }
+    $r
+}
+
+function Throttle-Delta($before, $after) {
+    $d = @{}
+    foreach ($svc in $after.Keys) {
+        $d[$svc] = [ordered]@{
+            periods = $after[$svc]['nr_periods'] - $before[$svc]['nr_periods']
+            throttledPeriods = $after[$svc]['nr_throttled'] - $before[$svc]['nr_throttled']
+            throttledMs = [math]::Round(($after[$svc]['throttled_usec'] - $before[$svc]['throttled_usec']) / 1000)
+            cpuUsageMs = [math]::Round(($after[$svc]['usage_usec'] - $before[$svc]['usage_usec']) / 1000)
+        }
+    }
+    $d
 }
 
 function Redis-Millis {
@@ -97,7 +134,7 @@ $meta = [ordered]@{
     docker = (docker version --format '{{.Server.Version}}'); dockerVm = (docker info --format 'cpus={{.NCPU}} mem={{.MemTotal}}')
     k6Image = 'grafana/k6:1.4.0'; appImage = (docker image inspect rateguard-service:local --format '{{.Id}} created {{.Created}}')
     containerLimits = 'app: 2 CPU / 1 GiB each; redis: 1 CPU; proxy: 1 CPU; k6: 4 CPU'
-    capacity = @{ scenarios = $Scenarios; vus = $Vus; trials = $Trials; duration = $Duration; warmup = $Warmup; limit = '1000000000 per 60s'; clients = 50 }
+    capacity = @{ scenarios = $Scenarios; vus = $Vus; trials = $Trials; duration = $Duration; warmup = $Warmup; stackWarmup = "$StackWarmup at 25 VUs"; limit = '1000000000 per 60s'; clients = 50 }
     correctness = @{ trials = $CorrectnessTrials; limit = '100 per 60s'; requests = 1000; vus = 50 }
 }
 $meta | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $out 'metadata.json') -Encoding utf8
@@ -107,18 +144,27 @@ if (-not $SkipCapacity) {
         $cfg = $scenarioConfig[$s]
         Write-Host "=== Scenario $s ($($cfg.desc))"
         Stack-Up $cfg.profile $cfg.enabled $cfg.backend '1000000000' '60s'
+        # Stack-level JIT warm-up: under the 2-CPU cap the C2 compiler needs minutes, not seconds
+        # (the smoke test showed throughput still rising after 5 min). Saved, excluded from stats.
+        New-Item -ItemType Directory -Force (Join-Path $out "capacity/$s") | Out-Null
+        Run-K6 'capacity.js' @{ TARGET = $cfg.target; VUS = '25'; KEYS = ($keys -join ';'); DURATION = $StackWarmup; LABEL = "$s stack warm-up" } "$rel/capacity/$s/stack-warmup.json" $null
+        $apps = App-Containers $cfg.profile
         foreach ($v in $Vus) {
             $dir = "capacity/$s/vus$v"; New-Item -ItemType Directory -Force (Join-Path $out $dir) | Out-Null
-            $common = @{ TARGET = $cfg.target; VUS = "$v"; KEYS = ($keys -join ',') }
+            # ";" separator: k6 -e values are split on commas.
+            $common = @{ TARGET = $cfg.target; VUS = "$v"; KEYS = ($keys -join ';') }
             Run-K6 'capacity.js' ($common + @{ DURATION = $Warmup; LABEL = "$s vus=$v warmup" }) "$rel/$dir/warmup.json" $null
             for ($t = 1; $t -le $Trials; $t++) {
                 $statsFile = Join-Path $out "$dir/trial$t-docker-stats.jsonl"
                 $hostCpu = Host-Cpu
+                $cpuBefore = Cpu-Stat $apps
                 $job = Start-StatsSampler $statsFile
                 $raw = if ($RawOutput) { "$rel/$dir/trial$t-raw.json.gz" } else { $null }
                 Run-K6 'capacity.js' ($common + @{ DURATION = $Duration; LABEL = "$s vus=$v trial=$t" }) "$rel/$dir/trial$t.json" $raw
                 Stop-StatsSampler $job $statsFile
-                @{ hostCpuPercentBeforeTrial = $hostCpu } | ConvertTo-Json | Set-Content (Join-Path $out "$dir/trial$t-host.json")
+                $throttle = Throttle-Delta $cpuBefore (Cpu-Stat $apps)
+                [ordered]@{ hostCpuPercentBeforeTrial = $hostCpu; cfsThrottling = $throttle } |
+                    ConvertTo-Json -Depth 4 | Set-Content (Join-Path $out "$dir/trial$t-host.json")
             }
         }
         Stack-Down
