@@ -14,8 +14,32 @@
 param(
     [string]$BaseUrl = "http://localhost:8080",
     [string]$ApiKey = $null,
-    [int]$Requests = 12
+    [int]$Requests = 12,
+    # Fixed-window length configured for the stack (RATEGUARD_WINDOW), used to avoid boundaries.
+    [int]$WindowSeconds = 60,
+    # Wait for a fresh window if fewer seconds than this remain in the current one.
+    [int]$MinSecondsLeft = 15
 )
+
+# Window boundaries are defined by the Redis server clock (rateguard.redis.time-source=REDIS_SERVER),
+# so read that clock, not the local one.
+function Get-RedisMillis {
+    $t = docker compose exec -T redis redis-cli TIME 2>$null
+    if ($LASTEXITCODE -ne 0 -or -not $t) { return $null }
+    return [long]$t[0] * 1000 + [math]::Floor([long]$t[1] / 1000)
+}
+$windowMs = [long]$WindowSeconds * 1000
+$before = Get-RedisMillis
+if ($null -ne $before) {
+    $leftMs = $windowMs - ($before % $windowMs)
+    if ($leftMs -lt $MinSecondsLeft * 1000) {
+        "Only {0:n1} s left in the current window; waiting for the next one..." -f ($leftMs / 1000)
+        Start-Sleep -Milliseconds ($leftMs + 200)
+        $before = Get-RedisMillis
+    }
+} else {
+    Write-Warning "Could not read the Redis clock (docker compose exec redis); window-boundary check skipped."
+}
 
 if (-not $ApiKey) {
     $keys = $env:RATEGUARD_API_KEYS
@@ -43,7 +67,12 @@ for ($i = 1; $i -le $Requests; $i++) {
     }
 }
 
+$after = Get-RedisMillis
+
 $rows | Format-Table -AutoSize
+if ($null -ne $before -and $null -ne $after) {
+    "All requests inside one fixed window (Redis clock): {0}" -f ([math]::Floor($before / $windowMs) -eq [math]::Floor($after / $windowMs))
+}
 "Accepted (200): {0}   Rejected (429): {1}   Other: {2}" -f `
     ($rows | Where-Object Status -eq 200).Count,
     ($rows | Where-Object Status -eq 429).Count,
