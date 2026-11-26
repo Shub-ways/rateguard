@@ -4,12 +4,16 @@ A rate-limiting library and HTTP service: four classic algorithms behind one
 interface, enforced by a Spring Boot filter with standard rate-limit headers.
 A Redis backend enforces one shared quota across many instances.
 
-> **Status (Milestone 4 of 5):** distributed Redis backend implemented for
+> **Status (Milestone 4 of 5, verified):** distributed Redis backend for
 > fixed window and token bucket, with atomic Lua scripts and fail-open or
-> fail-closed handling, plus a Docker Compose stack with 2 instances behind
-> nginx. See [docs/EVIDENCE.md](docs/EVIDENCE.md) for which results have been
-> verified so far. No performance numbers are claimed yet; benchmarks are
-> Milestone 5.
+> fail-closed handling. 128 automated tests run and pass, 0 skipped,
+> including Testcontainers tests against a real Redis.
+>
+> Verified results: 1,000 concurrent HTTP requests across **2 instances**
+> gave exactly 100 accepted and 900 rejected. The Docker Compose stack
+> (Redis + 2 instances + nginx) enforces one shared quota. See
+> [docs/EVIDENCE.md](docs/EVIDENCE.md). No performance numbers are claimed
+> yet; benchmarks are Milestone 5.
 
 ## Architecture
 
@@ -164,7 +168,8 @@ docker compose up --build -d               # waits for Redis and both apps to be
 docker compose ps
 
 ./scripts/verify-shared-quota.ps1 -Requests 12
-# Expect: 5 x 200 then 7 x 429 in total, served alternately by app-a and app-b.
+# Verified 2026-11-26: 5 x 200 then 7 x 429, alternating app-a/app-b (6/6),
+# Remaining 4->0 across both instances, all inside one window (Redis clock).
 # With backend=IN_MEMORY the same run would allow up to 10.
 
 docker compose logs app-a app-b            # look for "RateGuard: backend=REDIS ..."
@@ -223,7 +228,7 @@ when Docker isn't running.
 | 1. Foundation | Git setup, fixed-window limiter | done |
 | 2. Core algorithms | 4 algorithms, `RateLimitResult`, contract tests | done |
 | 3. HTTP service | Spring Boot filter, 429 + headers, API-key/IP identification, eviction, metrics | done |
-| 4. Distributed | Redis + Lua backends, failure modes, Docker Compose with 2 app instances, shared quota | implemented; Docker-based verification in [EVIDENCE](docs/EVIDENCE.md) |
+| 4. Distributed | Redis + Lua backends, failure modes, Docker Compose with 2 app instances, shared quota | done, verified with Docker ([EVIDENCE](docs/EVIDENCE.md)) |
 | 5. Performance | JMH and k6 measurements, write-up | planned |
 
 Metrics to measure in milestone 5 (none are claimed yet): decisions/sec per

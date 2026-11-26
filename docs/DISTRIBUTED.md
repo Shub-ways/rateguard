@@ -75,6 +75,13 @@ all a rate limiter needs.
 - **Compose setup:** Redis runs with `maxmemory 128mb` and
   `volatile-ttl` eviction, with no persistence, because the state is
   short-lived.
+- **Consequence of no persistence:** a Redis **restart resets every quota**.
+  This was observed in the Compose run: a client that was over its limit
+  got its full quota back once Redis came back.
+  - For a few-second outage this is usually acceptable.
+  - If it isn't, enable AOF (`--appendonly yes --appendfsync everysec`) or
+    run a replica. Asynchronous replication can still lose the last
+    increments on failover.
 
 ## Time source and clock skew
 
@@ -87,6 +94,7 @@ all a rate limiter needs.
 
 If the Redis clock steps backwards (an NTP correction), neither script undoes
 work:
+
 - the fixed window keeps counting in the newer window instead of reopening an
   older one;
 - the token bucket simply doesn't refill until time passes the last refill.
