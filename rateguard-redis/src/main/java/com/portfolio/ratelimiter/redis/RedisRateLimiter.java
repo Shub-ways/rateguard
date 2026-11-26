@@ -11,10 +11,8 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 
 /**
@@ -60,10 +58,8 @@ public abstract class RedisRateLimiter implements RateLimiter {
         if (!SAFE_CLIENT_ID.matcher(keyPrefix).matches()) {
             throw new IllegalArgumentException("keyPrefix must match " + SAFE_CLIENT_ID.pattern());
         }
-        DefaultRedisScript<List> s = new DefaultRedisScript<>();
-        s.setLocation(new ClassPathResource(scriptName, RedisRateLimiter.class));
-        s.setResultType(List.class);
-        this.script = s;
+        // Text and SHA-1 computed once; see PrecomputedScript for why not DefaultRedisScript.
+        this.script = PrecomputedScript.load(scriptName);
         this.keyBase = keyPrefix + ":" + algorithmAndPolicy + ":";
         this.limit = limit;
     }
