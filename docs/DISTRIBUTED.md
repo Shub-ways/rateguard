@@ -121,10 +121,25 @@ Both are covered by tests.
 - **Startup:** connections are lazy, so the service starts even if Redis is
   down, and the failure mode applies from the first request.
 - **Recovery:**
-  - Once Redis answers again, the next request is decided normally.
-  - State in Redis is preserved across a pause, and outage requests consumed
-    no quota.
+  - Once Redis answers again, the next request is decided normally, and
+    state in Redis is preserved.
   - Dropped connections (`CLIENT KILL`) are re-established automatically.
+- **A timeout does not mean "not executed".**
+  - **Refused connections:** if Redis is unreachable (connection refused),
+    the script never runs and no quota is used.
+  - **Timeouts:** if a command **times out**, it may already have reached
+    Redis and still run afterwards. That spends quota for a request whose
+    client got a 503 (`FAIL_CLOSED`) or an unlimited pass (`FAIL_OPEN`).
+  - **Observed:** in `RedisFailureModeTest`, Redis was paused, so commands
+    were delivered but not answered. Both timed-out requests were executed
+    once Redis was unpaused.
+  - **Under `FAIL_CLOSED`** this errs on the safe side: it can under-admit,
+    never over-admit.
+  - **Under `FAIL_OPEN`**, timed-out requests are let through *and* may also
+    be counted. During slowdowns, somewhat more than the limit can pass, and
+    later requests can be rejected sooner.
+  - **Mitigation:** size `spring.data.redis.timeout` well above normal
+    Redis latency. The Milestone 5 benchmarks measure that latency.
 
 ### Signals
 

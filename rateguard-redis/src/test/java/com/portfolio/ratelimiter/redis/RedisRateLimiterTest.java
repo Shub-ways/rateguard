@@ -60,7 +60,9 @@ class RedisRateLimiterTest {
 
     @BeforeAll
     static void connect() {
-        factory = connectionFactory(REDIS.getHost(), REDIS.getMappedPort(6379));
+        // Correctness tests use a generous timeout: under heavy client-side load (e.g. DEBUG
+        // logging) 500 ms commands timed out, which is a latency question, not an atomicity one.
+        factory = connectionFactory(REDIS.getHost(), REDIS.getMappedPort(6379), Duration.ofSeconds(5));
         redis = new StringRedisTemplate(factory);
     }
 
@@ -98,7 +100,9 @@ class RedisRateLimiterTest {
         Random random = new Random(21);
         int rejections = 0;
         for (int i = 0; i < 3_000; i++) {
-            clock.advance(random.nextInt(250));
+            // ~1 request per 150 ms per client: above both policies' sustained rate, so
+            // the sequence mixes accepts, rejections, window resets and partial refills.
+            clock.advance(random.nextInt(100));
             String client = "client-" + random.nextInt(3);
             RateLimitResult expected = reference.tryAcquire(client);
             RateLimitResult actual = underTest.tryAcquire(client);
@@ -137,15 +141,21 @@ class RedisRateLimiterTest {
         RateLimiter limiter = limiterFactory.get();
         int total = 1_000;
         AtomicInteger failures = new AtomicInteger();
+        java.util.Map<String, Integer> failureTypes = new java.util.concurrent.ConcurrentHashMap<>();
         List<RateLimitResult> results = runConcurrently(64, total, () -> {
             try {
                 return limiter.tryAcquire("hot-client");
             } catch (RuntimeException e) {
                 failures.incrementAndGet();
+                Throwable root = e;
+                while (root.getCause() != null) {
+                    root = root.getCause();
+                }
+                failureTypes.merge(root.getClass().getSimpleName() + ": " + root.getMessage(), 1, Integer::sum);
                 return null;
             }
         });
-        assertEquals(0, failures.get(), "unexpected failures");
+        assertEquals(0, failures.get(), "unexpected failures: " + failureTypes);
         assertEquals(total, results.size());
         List<RateLimitResult> accepted = results.stream().filter(RateLimitResult::allowed).toList();
         assertEquals(100, accepted.size(), "accepted");
@@ -261,7 +271,7 @@ class RedisRateLimiterTest {
         try (ServerSocket socket = new ServerSocket(0)) {
             closedPort = socket.getLocalPort();
         }
-        LettuceConnectionFactory deadFactory = connectionFactory("localhost", closedPort);
+        LettuceConnectionFactory deadFactory = connectionFactory("localhost", closedPort, Duration.ofMillis(500));
         try {
             RateLimiter limiter = new RedisFixedWindowRateLimiter(new StringRedisTemplate(deadFactory),
                     new RateLimitPolicy(5, Duration.ofSeconds(1)), "t", RedisTime.server());
@@ -286,9 +296,9 @@ class RedisRateLimiterTest {
 
     // ---- helpers ----
 
-    static LettuceConnectionFactory connectionFactory(String host, int port) {
+    static LettuceConnectionFactory connectionFactory(String host, int port, Duration commandTimeout) {
         LettuceClientConfiguration client = LettuceClientConfiguration.builder()
-                .commandTimeout(Duration.ofMillis(500))
+                .commandTimeout(commandTimeout)
                 .clientOptions(ClientOptions.builder()
                         .socketOptions(SocketOptions.builder().connectTimeout(Duration.ofMillis(500)).build())
                         .disconnectedBehavior(ClientOptions.DisconnectedBehavior.REJECT_COMMANDS)

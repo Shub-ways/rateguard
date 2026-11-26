@@ -109,10 +109,20 @@ class RedisFailureModeTest {
         assertThat(duringOpen.headers().firstValue(RateLimitFilter.LIMIT_HEADER)).isEmpty();
 
         unpause();
-        HttpResponse<String> recovered = awaitEnforced(closed);
-        // Fail-closed and fail-open outage requests consumed nothing: the count continues at 2.
-        assertThat(remaining(recovered)).isEqualTo("2");
-        assertThat(remaining(awaitEnforced(open))).isEqualTo("1");
+        HttpResponse<String> recovered = awaitDecided(closed);
+        // The two outage requests timed out on the client, but their EVALSHA had already been
+        // written to Redis' socket, so Redis may execute them once unpaused: a timed-out command
+        // can still consume quota (see docs/DISTRIBUTED.md). Remaining is therefore 0..2, never more.
+        long remainingAfterRecovery = Long.parseLong(
+                recovered.headers().firstValue(RateLimitFilter.REMAINING_HEADER).orElseThrow());
+        System.out.printf("EVIDENCE timeout-recovery: remaining after recovery=%d "
+                + "(2 = timed-out commands never ran, 0 = both ran after unpause)%n", remainingAfterRecovery);
+        assertThat(remainingAfterRecovery).isBetween(0L, 2L);
+        assertThat(recovered.statusCode()).isEqualTo(200);
+
+        // The other instance is enforcing again, consistently with the shared state.
+        HttpResponse<String> next = awaitDecided(open);
+        assertThat(next.statusCode()).isEqualTo(remainingAfterRecovery > 0 ? 200 : 429);
 
         String log = output.getAll();
         assertThat(log).contains("Rate-limit backend unavailable, applying FAIL_CLOSED");
@@ -135,12 +145,23 @@ class RedisFailureModeTest {
 
     // ---- helpers ----
 
-    /** Polls until a request is decided by Redis again (status 200 with quota headers), max 10 s. */
+    /** Polls until a request is allowed by Redis again (200 with quota headers), max 10 s. */
     private static HttpResponse<String> awaitEnforced(AppInstance app) throws Exception {
+        return awaitUntil(app, r -> r.statusCode() == 200);
+    }
+
+    /** Polls until Redis decides a request again (200 or 429, with quota headers), max 10 s. */
+    private static HttpResponse<String> awaitDecided(AppInstance app) throws Exception {
+        return awaitUntil(app, r -> r.statusCode() == 200 || r.statusCode() == 429);
+    }
+
+    private static HttpResponse<String> awaitUntil(AppInstance app,
+                                                   java.util.function.Predicate<HttpResponse<String>> done)
+            throws Exception {
         long deadline = System.currentTimeMillis() + 10_000;
         while (true) {
             HttpResponse<String> r = app.resource(KEY);
-            if (r.statusCode() == 200 && r.headers().firstValue(RateLimitFilter.REMAINING_HEADER).isPresent()) {
+            if (done.test(r) && r.headers().firstValue(RateLimitFilter.REMAINING_HEADER).isPresent()) {
                 return r;
             }
             if (System.currentTimeMillis() > deadline) {
