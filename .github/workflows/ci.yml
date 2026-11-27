@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "25"
@@ -50,6 +50,8 @@ jobs:
               errors += int(s.get("errors", 0)); skipped += int(s.get("skipped", 0))
           summary = f"Tests run: {tests}, failures: {failures}, errors: {errors}, skipped: {skipped}"
           print(summary)
+          # A notice annotation is publicly readable via the checks API (logs need a login).
+          print(f"::notice title=Test totals::{summary}")
           with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a") as f:
               f.write(f"### {summary}\n")
           if tests == 0 or failures or errors or skipped:
@@ -57,7 +59,7 @@ jobs:
 
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: surefire-reports
           path: "**/target/surefire-reports/"
