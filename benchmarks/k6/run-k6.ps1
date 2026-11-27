@@ -24,7 +24,10 @@ param(
     [int]$CorrectnessTrials = 3,
     [switch]$SkipCapacity,
     [switch]$SkipCorrectness,
-    [switch]$RawOutput
+    [switch]$RawOutput,
+    # App image to benchmark (default rateguard-service:local) and a label for the results folder.
+    [string]$Image = 'rateguard-service:local',
+    [string]$Tag = ''
 )
 
 # Native tools (java, docker) write to stderr; in Windows PowerShell 5.1 'Stop' would turn that
@@ -32,7 +35,8 @@ param(
 $ErrorActionPreference = 'Continue'
 $root = Resolve-Path "$PSScriptRoot/../.."
 $compose = Join-Path $root 'benchmarks/k6/compose.bench.yaml'
-$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+$stamp = (Get-Date -Format 'yyyyMMdd-HHmmss') + $(if ($Tag) { "-$Tag" } else { '' })
+$env:RG_IMAGE = $Image
 $rel = "$stamp"                                   # path below /results inside the k6 container
 $out = Join-Path $root "benchmarks/results/k6/$stamp"
 New-Item -ItemType Directory -Force $out | Out-Null
@@ -132,7 +136,7 @@ $meta = [ordered]@{
     started = (Get-Date).ToString('o'); gitCommit = (git -C $root rev-parse HEAD); gitDirty = [bool](git -C $root status --porcelain)
     cpu = (Get-CimInstance Win32_Processor | Select-Object -First 1).Name
     docker = (docker version --format '{{.Server.Version}}'); dockerVm = (docker info --format 'cpus={{.NCPU}} mem={{.MemTotal}}')
-    k6Image = 'grafana/k6:1.4.0'; appImage = (docker image inspect rateguard-service:local --format '{{.Id}} created {{.Created}}')
+    k6Image = 'grafana/k6:1.4.0'; appImage = "$Image " + (docker image inspect $Image --format '{{.Id}} created {{.Created}}')
     containerLimits = 'app: 2 CPU / 1 GiB each; redis: 1 CPU; proxy: 1 CPU; k6: 4 CPU'
     capacity = @{ scenarios = $Scenarios; vus = $Vus; trials = $Trials; duration = $Duration; warmup = $Warmup; stackWarmup = "$StackWarmup at 25 VUs"; limit = '1000000000 per 60s'; clients = 50 }
     correctness = @{ trials = $CorrectnessTrials; limit = '100 per 60s'; requests = 1000; vus = 50 }
