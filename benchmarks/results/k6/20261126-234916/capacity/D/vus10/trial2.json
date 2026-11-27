@@ -1,0 +1,219 @@
+{
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "isStdOutTTY": false,
+  "isStdErrTTY": false,
+  "testRunDurationMs": 30014.225295
+ },
+ "metrics": {
+  "vus_max": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "min": 10,
+    "max": 10,
+    "value": 10
+   }
+  },
+  "http_req_blocked": {
+   "values": {
+    "p(90)": 0.012941099999999999,
+    "p(95)": 0.01607219999999998,
+    "p(99)": 0.06157551000000011,
+    "max": 4.484922,
+    "avg": 0.01050965529157664,
+    "min": 0.000831,
+    "med": 0.006015
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "http_req_failed": {
+   "contains": "default",
+   "values": {
+    "passes": 0,
+    "fails": 37040,
+    "rate": 0
+   },
+   "type": "rate"
+  },
+  "data_sent": {
+   "values": {
+    "count": 4778160,
+    "rate": 159196.51275476973
+   },
+   "type": "counter",
+   "contains": "data"
+  },
+  "vus": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "max": 10,
+    "value": 10,
+    "min": 10
+   }
+  },
+  "http_req_tls_handshaking": {
+   "values": {
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0,
+    "avg": 0
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "iteration_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "max": 89.475751,
+    "avg": 8.071422644168464,
+    "min": 1.152471,
+    "med": 5.176171,
+    "p(90)": 14.320939899999996,
+    "p(95)": 29.69700849999998,
+    "p(99)": 47.47564545
+   }
+  },
+  "data_received": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 10334010,
+    "rate": 344303.73925798177
+   }
+  },
+  "http_reqs": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 37040,
+    "rate": 1234.0814942230213
+   }
+  },
+  "http_req_sending": {
+   "contains": "time",
+   "values": {
+    "p(95)": 0.07072439999999935,
+    "p(99)": 0.23156696000000002,
+    "max": 8.596616,
+    "avg": 0.03358220723542115,
+    "min": 0.002579,
+    "med": 0.0189115,
+    "p(90)": 0.04566849999999998
+   },
+   "type": "trend"
+  },
+  "http_req_connecting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 0.0005457271328293735,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 3.002089
+   }
+  },
+  "http_req_waiting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 7.711230806803404,
+    "min": 1.035313,
+    "med": 4.8496974999999996,
+    "p(90)": 13.722310599999995,
+    "p(95)": 29.32030334999994,
+    "p(99)": 47.07532540000001,
+    "max": 89.211808
+   }
+  },
+  "iterations": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 37040,
+    "rate": 1234.0814942230213
+   }
+  },
+  "http_req_receiving": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0.009715,
+    "med": 0.0743455,
+    "p(90)": 0.2044598,
+    "p(95)": 0.2886265499999997,
+    "p(99)": 0.8143127800000001,
+    "max": 8.384095,
+    "avg": 0.11673422227321767
+   }
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 7.861547236312133,
+    "min": 1.08436,
+    "med": 4.989064,
+    "p(90)": 13.987184899999997,
+    "p(95)": 29.46784734999997,
+    "p(99)": 47.2764432,
+    "max": 89.286571
+   }
+  },
+  "status_200": {
+   "values": {
+    "count": 37040,
+    "rate": 1234.0814942230213
+   },
+   "type": "counter",
+   "contains": "default"
+  },
+  "http_req_duration": {
+   "values": {
+    "max": 89.286571,
+    "avg": 7.861547236312133,
+    "min": 1.08436,
+    "med": 4.989064,
+    "p(90)": 13.987184899999997,
+    "p(95)": 29.46784734999997,
+    "p(99)": 47.2764432
+   },
+   "type": "trend",
+   "contains": "time"
+  }
+ },
+ "rateguard": {
+  "label": "D vus=10 trial=2",
+  "target": "http://proxy:80",
+  "vus": 10,
+  "duration": "30s"
+ },
+ "root_group": {
+  "name": "",
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": [],
+  "checks": []
+ }
+}

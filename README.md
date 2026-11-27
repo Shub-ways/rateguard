@@ -4,16 +4,22 @@ A rate-limiting library and HTTP service: four classic algorithms behind one
 interface, enforced by a Spring Boot filter with standard rate-limit headers.
 A Redis backend enforces one shared quota across many instances.
 
-> **Status (Milestone 4 of 5, verified):** distributed Redis backend for
-> fixed window and token bucket, with atomic Lua scripts and fail-open or
-> fail-closed handling. 128 automated tests run and pass, 0 skipped,
-> including Testcontainers tests against a real Redis.
+> **Status (all 5 milestones complete):**
 >
-> Verified results: 1,000 concurrent HTTP requests across **2 instances**
-> gave exactly 100 accepted and 900 rejected. The Docker Compose stack
-> (Redis + 2 instances + nginx) enforces one shared quota. See
-> [docs/EVIDENCE.md](docs/EVIDENCE.md). No performance numbers are claimed
-> yet; benchmarks are Milestone 5.
+> - **Algorithms:** 4 in-memory and 2 Redis-backed (atomic Lua).
+> - **Tests:** 128 automated tests run and pass, 0 skipped, including
+>   Testcontainers tests against a real Redis.
+> - **Correctness:** across **2 instances**, 1,000 concurrent requests from
+>   one client with a quota of 100 gave exactly 100 accepted and 900
+>   rejected in 6 of 6 k6 trials.
+> - **Performance:** profiling a throughput plateau on the Redis path found
+>   lock contention on the Lua script's SHA. Fixing it measured **+113%
+>   to +117% throughput and −27% p99** in interleaved same-session
+>   benchmarks.
+>
+> Numbers, method and limitations: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
+> and [docs/EVIDENCE.md](docs/EVIDENCE.md). The measurements come from a
+> 15 W laptop.
 
 ## Architecture
 
@@ -229,10 +235,28 @@ when Docker isn't running.
 | 2. Core algorithms | 4 algorithms, `RateLimitResult`, contract tests | done |
 | 3. HTTP service | Spring Boot filter, 429 + headers, API-key/IP identification, eviction, metrics | done |
 | 4. Distributed | Redis + Lua backends, failure modes, Docker Compose with 2 app instances, shared quota | done, verified with Docker ([EVIDENCE](docs/EVIDENCE.md)) |
-| 5. Performance | JMH and k6 measurements, write-up | planned |
+| 5. Performance | JMH, k6 (4 scenarios × 3 load levels × 3 trials), correctness under load, heap per client, Redis-path fix | done ([BENCHMARKS](docs/BENCHMARKS.md)) |
 
-Metrics to measure in milestone 5 (none are claimed yet): decisions/sec per
-algorithm (JMH, hot key vs. many keys); memory per tracked key (JOL);
-requests/sec and p50/p95/p99 latency at stated concurrency (k6); accepted vs.
-rejected counts under load; in-memory vs. Redis; shared quota across 2
-instances.
+## Benchmarks
+
+Measured on a 15 W laptop (i5-1335U), with the app capped at 2 CPUs per
+container. Full tables, raw files and limitations are in
+[docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+
+| Measurement | Result |
+| --- | --- |
+| HTTP, no limiter vs in-memory limiter (k6, 50 VUs) | 6,544 vs 6,468 req/s: the difference is within run-to-run noise |
+| HTTP, Redis limiter, 1 instance (k6, 50 VUs), after the fix | 2,488 req/s, p99 79 ms |
+| Redis-path fix (interleaved before/after, same session) | **+113% to +117% req/s, −27% p99, −74% p50** |
+| Quota under load: 2 instances, 1 client, 1,000 requests, quota 100 | exactly 100 accepted / 900 rejected, 6 of 6 trials |
+| In-memory decision (JMH, 1 thread) | about 26M decisions/s |
+| Heap per client | 77 B (fixed window) to 1,125 B (sliding-window log at 100 stored requests) |
+
+Reproduce:
+
+```powershell
+mvn -DskipTests package; docker compose build
+./benchmarks/jmh/run-jmh.ps1           # JMH sweep and heap measurement (about 20 min)
+./benchmarks/k6/run-k6.ps1             # k6 scenarios A-D and correctness (about 40 min)
+python benchmarks/summarize.py         # regenerates benchmarks/results/SUMMARY.md
+```

@@ -101,13 +101,57 @@ limit 5 per 60 s, `FAIL_CLOSED`, Redis server clock.
 
 ### Still not verified
 
-Redis Cluster or replica failover; TLS to Redis; behaviour under sustained
-load (milestone 5).
+Redis Cluster or replica failover; TLS to Redis.
 
-## Not yet measured
+## Milestone 5: benchmarks (2026-11-26 / 27)
 
-Throughput (requests/sec), p50/p95/p99 latency under load, memory per tracked
-key, and in-memory vs. Redis performance. Planned for Milestone 5 with JMH and
-k6. The response times printed during the manual Compose checks were single
-observations, not measurements, and are deliberately not recorded as
-performance figures.
+Full method, tables and limitations: [BENCHMARKS.md](BENCHMARKS.md).
+Generated summary: [benchmarks/results/SUMMARY.md](../benchmarks/results/SUMMARY.md).
+
+**Environment:**
+
+- Machine: Intel i5-1335U (15 W, 2 performance + 8 efficiency cores, 12
+  threads), 15.7 GiB RAM, Windows 11 build 26300, Balanced power plan,
+  20–40% background desktop load.
+- Software: JDK 25.0.5, Docker Desktop 29.9.3 (WSL 2, 12 CPUs, 7.6 GiB),
+  k6 1.4.0, Redis 7.4.2, JMH 1.37.
+- Container limits: app 2 CPU / 1 GiB, Redis 1 CPU, nginx 1 CPU, k6 4 CPU.
+
+**Tests after the benchmark work:** `mvn clean test` at `ca9bf13`, run on
+2026-11-27, gave **128 run, 0 failures, 0 skipped**.
+
+### Measured (benchmarks; machine-specific)
+
+| Fact | Workload | Trials | Evidence |
+| --- | --- | --- | --- |
+| **Lua-script SHA lock fix: +112.8% / +116.7% req/s, p99 −26.7% / −26.9%, p50 −74.7% / −74.3%** (2,488 req/s vs 1,169 and 1,148; p99 79.2 ms vs 108.0 and 108.2 ms) | k6, scenario C (1 instance + Redis), 50 VUs, interleaved images in one session, after-fix round compared with the before-fix rounds on either side | 3 × 30 s per round, 5 rounds | `results/k6/*-ab{3,4,5}-*` |
+| Cause of the plateau: **47 of 81** sampled request threads parked in `DefaultRedisScript.getSha1()` before the fix, **0 of 81** after | k6 C, 25 VUs, 3 thread dumps each | 1 run each | BENCHMARKS.md "Finding" |
+| In-memory limiter overhead vs no limiter at saturation (50 VUs): **−1.2% req/s, within noise** (ranges overlap); at 10 VUs −8.4% | k6 A vs B | 3 × 30 s | `results/k6/20261126-234916` |
+| HTTP capacity with no limiter / in-memory limiter: **6,544 / 6,468 req/s** at 50 VUs, p99 60.3 / 62.3 ms, 0 errors | k6 A / B, 1 app container (2 CPUs), 50 keys | 3 × 30 s | same |
+| Redis path after the fix: **2,488 req/s**, p99 79.2 ms at 50 VUs, 0 errors | k6 C | 3 × 30 s | `ab4-after-fix` |
+| 2 instances + nginx (before the fix): 1,149–1,378 req/s, limited by **nginx at 91% of its 1-CPU cap**, not by app CPU | k6 D | 3 × 30 s | `20261126-234916` |
+| In-memory decision cost: about 26M ops/s on 1 thread for every algorithm (HOT, reject path); 17–35M ops/s on 12 threads with independent keys; one contended key drops to 5–7M ops/s on 12 threads | JMH, 1 fork | 5 × 2 s | `results/jmh/20261126-231420` |
+| Heap per client: fixed window 77 B, token bucket 85 B, sliding-window counter 101 B, sliding-window log 229 B → **1,125 B** at 100 stored requests | heap delta after GC, 100k clients | 3 (identical) | `memory-footprint.txt` |
+
+### Verified (correctness under load, separate from capacity)
+
+| Fact | Evidence |
+| --- | --- |
+| **6 of 6 k6 trials:** 1,000 requests from 1 client through nginx to 2 instances, quota 100 → **exactly 100 accepted, 900 rejected, 0 errors, 0 quota violations.** Each instance served 500, and both admitted requests (for example 45/55). Every trial was confirmed to stay inside one window by the Redis clock | `results/k6/20261126-234916/correctness`, `results/k6/20261127-002434/correctness` |
+| JUnit/Testcontainers equivalents (fixed window and token bucket) pass in every full-suite run | `mvn clean test` |
+
+### Failed or unusable runs, kept on purpose
+
+| Run | Why | Treatment |
+| --- | --- | --- |
+| 3 × `*-smoke-FAILED-*` | Runner bugs (k6 env handling, comma splitting, PowerShell `.Keys` shadowing) | Fixed in `1955f73`; no measurements taken from them |
+| JMH Redis set | Measured Docker Desktop port forwarding (p50 about 2 ms), not Redis | Kept; not used for claims |
+| 2 JMH cells (fixed window SPREAD at 12 threads, token bucket SPREAD at 1 thread) | Error bars as large as the result | Kept; not used for claims |
+| `20261127-002434` capacity (C/D after the fix) | System sleep during the stack warm-up, then upward drift; D also ran about 25% slower than in the previous session | Kept; superseded by the interleaved experiment for the fix comparison |
+| A/B round 2 (after-fix, +39% vs round 1) | Measured while the session was still drifting | Reported; the claim uses rounds 3–5 |
+
+### Not measured
+
+Open-loop latency at a target arrival rate; unthrottled latency (no CPU
+caps); D with a larger nginx CPU allowance; Redis Cluster; anything on
+server hardware.

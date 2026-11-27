@@ -1,0 +1,276 @@
+﻿java.exe : WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+At D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\jmh\run-jmh.ps1:50 char:5
++     & java -jar $jar $pattern -t $threads @iter -rf json -rff $json @ ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A term...has been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils 
+(file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput
+# Parameters: (algorithm = FIXED_WINDOW, keys = HOT, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 0.00% complete, ETA 00:01:04
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 767.312 ops/s
+# Warmup Iteration   2: 1218.175 ops/s
+# Warmup Iteration   3: 1181.238 ops/s
+Iteration   1: 1424.060 ops/s
+                 allowed:  1085.783 ops/s
+                 rejected: 338.277 ops/s
+
+Iteration   2: 1786.719 ops/s
+                 allowed:  999.004 ops/s
+                 rejected: 787.715 ops/s
+
+Iteration   3: 1626.488 ops/s
+                 allowed:  999.685 ops/s
+                 rejected: 626.803 ops/s
+
+Iteration   4: 1731.819 ops/s
+                 allowed:  998.742 ops/s
+                 rejected: 733.077 ops/s
+
+Iteration   5: 1702.065 ops/s
+                 allowed:  999.451 ops/s
+                 rejected: 702.614 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput":
+  1654.230 ±(99.9%) 543.233 ops/s [Average]
+  (min, avg, max) = (1424.060, 1654.230, 1786.719), stdev = 141.076
+  CI (99.9%): [1110.997, 2197.463] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:allowed":
+  1016.533 ±(99.9%) 149.073 ops/s [Average]
+  (min, avg, max) = (998.742, 1016.533, 1085.783), stdev = 38.714
+  CI (99.9%): [867.461, 1165.606] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:rejected":
+  637.697 ±(99.9%) 682.303 ops/s [Average]
+  (min, avg, max) = (338.277, 637.697, 787.715), stdev = 177.192
+  CI (99.9%): [≈ 0, 1320.000] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput
+# Parameters: (algorithm = FIXED_WINDOW, keys = SPREAD, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 25.00% complete, ETA 00:00:57
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 935.700 ops/s
+# Warmup Iteration   2: 1272.658 ops/s
+# Warmup Iteration   3: 1429.861 ops/s
+Iteration   1: 1307.236 ops/s
+                 allowed:  1307.236 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 1712.105 ops/s
+                 allowed:  1712.105 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 1744.731 ops/s
+                 allowed:  1744.731 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 1610.253 ops/s
+                 allowed:  1610.253 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 1582.520 ops/s
+                 allowed:  1582.520 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput":
+  1591.369 ±(99.9%) 664.901 ops/s [Average]
+  (min, avg, max) = (1307.236, 1591.369, 1744.731), stdev = 172.673
+  CI (99.9%): [926.468, 2256.270] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:allowed":
+  1591.369 ±(99.9%) 664.901 ops/s [Average]
+  (min, avg, max) = (1307.236, 1591.369, 1744.731), stdev = 172.673
+  CI (99.9%): [926.468, 2256.270] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput
+# Parameters: (algorithm = TOKEN_BUCKET, keys = HOT, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 50.00% complete, ETA 00:00:37
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 941.242 ops/s
+# Warmup Iteration   2: 1161.085 ops/s
+# Warmup Iteration   3: 1329.737 ops/s
+Iteration   1: 1641.172 ops/s
+                 allowed:  1022.361 ops/s
+                 rejected: 618.811 ops/s
+
+Iteration   2: 1509.273 ops/s
+                 allowed:  997.020 ops/s
+                 rejected: 512.253 ops/s
+
+Iteration   3: 1656.018 ops/s
+                 allowed:  1003.904 ops/s
+                 rejected: 652.113 ops/s
+
+Iteration   4: 1604.699 ops/s
+                 allowed:  1000.688 ops/s
+                 rejected: 604.010 ops/s
+
+Iteration   5: 1780.862 ops/s
+                 allowed:  1000.141 ops/s
+                 rejected: 780.720 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput":
+  1638.405 ±(99.9%) 377.397 ops/s [Average]
+  (min, avg, max) = (1509.273, 1638.405, 1780.862), stdev = 98.009
+  CI (99.9%): [1261.008, 2015.801] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:allowed":
+  1004.823 ±(99.9%) 38.905 ops/s [Average]
+  (min, avg, max) = (997.020, 1004.823, 1022.361), stdev = 10.104
+  CI (99.9%): [965.918, 1043.729] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:rejected":
+  633.582 ±(99.9%) 374.357 ops/s [Average]
+  (min, avg, max) = (512.253, 633.582, 780.720), stdev = 97.219
+  CI (99.9%): [259.225, 1007.938] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput
+# Parameters: (algorithm = TOKEN_BUCKET, keys = SPREAD, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 75.00% complete, ETA 00:00:18
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 878.228 ops/s
+# Warmup Iteration   2: 1253.091 ops/s
+# Warmup Iteration   3: 1447.050 ops/s
+Iteration   1: 1447.660 ops/s
+                 allowed:  1447.660 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 1583.785 ops/s
+                 allowed:  1583.785 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 1672.216 ops/s
+                 allowed:  1672.216 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 1750.784 ops/s
+                 allowed:  1750.784 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 1678.619 ops/s
+                 allowed:  1678.619 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput":
+  1626.613 ±(99.9%) 447.658 ops/s [Average]
+  (min, avg, max) = (1447.660, 1626.613, 1750.784), stdev = 116.255
+  CI (99.9%): [1178.955, 2074.270] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:allowed":
+  1626.613 ±(99.9%) 447.658 ops/s [Average]
+  (min, avg, max) = (1447.660, 1626.613, 1750.784), stdev = 116.255
+  CI (99.9%): [1178.955, 2074.270] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# Run complete. Total time: 00:01:15
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                                   (algorithm)  (keys)  (limit)  (redisHost)  (redisPort)  (spreadKeys)  (windowMs)   Mode  Cnt     Score     Error  Units
+RedisLimiterBenchmark.throughput           FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  thrpt    5  1654.230 ± 543.233  ops/s
+RedisLimiterBenchmark.throughput:allowed   FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  thrpt    5  1016.533 ± 149.073  ops/s
+RedisLimiterBenchmark.throughput:rejected  FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  thrpt    5   637.697 ± 682.303  ops/s
+RedisLimiterBenchmark.throughput           FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  thrpt    5  1591.369 ± 664.901  ops/s
+RedisLimiterBenchmark.throughput:allowed   FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  thrpt    5  1591.369 ± 664.901  ops/s
+RedisLimiterBenchmark.throughput:rejected  FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  thrpt    5       ≈ 0            ops/s
+RedisLimiterBenchmark.throughput           TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  thrpt    5  1638.405 ± 377.397  ops/s
+RedisLimiterBenchmark.throughput:allowed   TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  thrpt    5  1004.823 ±  38.905  ops/s
+RedisLimiterBenchmark.throughput:rejected  TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  thrpt    5   633.582 ± 374.357  ops/s
+RedisLimiterBenchmark.throughput           TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  thrpt    5  1626.613 ± 447.658  ops/s
+RedisLimiterBenchmark.throughput:allowed   TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  thrpt    5  1626.613 ± 447.658  ops/s
+RedisLimiterBenchmark.throughput:rejected  TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  thrpt    5       ≈ 0            ops/s
+
+Benchmark result is saved to D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\results\jmh\20261126-231420\redis-throughput-t1.json

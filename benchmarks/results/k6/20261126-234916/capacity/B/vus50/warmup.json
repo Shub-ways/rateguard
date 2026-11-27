@@ -1,0 +1,219 @@
+{
+ "root_group": {
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": [],
+  "checks": [],
+  "name": ""
+ },
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "isStdOutTTY": false,
+  "isStdErrTTY": false,
+  "testRunDurationMs": 15009.250486
+ },
+ "metrics": {
+  "data_sent": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 11013762,
+    "rate": 733798.2672934385
+   }
+  },
+  "iterations": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 85378,
+    "rate": 5688.358661189446
+   }
+  },
+  "http_req_connecting": {
+   "values": {
+    "p(95)": 0,
+    "p(99)": 0.1339146899999963,
+    "max": 11.289904,
+    "avg": 0.0077500670078943035,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "data_received": {
+   "contains": "data",
+   "values": {
+    "count": 19738088,
+    "rate": 1315061.5361114042
+   },
+   "type": "counter"
+  },
+  "http_req_blocked": {
+   "values": {
+    "max": 16.877068,
+    "avg": 0.022874508561924804,
+    "min": 0.000572,
+    "med": 0.004968,
+    "p(90)": 0.010614,
+    "p(95)": 0.013735299999999988,
+    "p(99)": 0.30324231999999557
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0.134624,
+    "med": 3.997582,
+    "p(90)": 13.940858800000013,
+    "p(95)": 51.03064754999998,
+    "p(99)": 63.69223483,
+    "max": 88.43674,
+    "avg": 8.497236192625635
+   }
+  },
+  "http_req_sending": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0.001996,
+    "med": 0.01557,
+    "p(90)": 0.0369306,
+    "p(95)": 0.08562724999999921,
+    "p(99)": 0.47119486999999893,
+    "max": 21.454588,
+    "avg": 0.06113369107966932
+   }
+  },
+  "iteration_duration": {
+   "contains": "time",
+   "values": {
+    "p(95)": 51.35954139999997,
+    "p(99)": 64.07206977999996,
+    "max": 88.562933,
+    "avg": 8.746011421712968,
+    "min": 0.187696,
+    "med": 4.198376,
+    "p(90)": 15.076765400000001
+   },
+   "type": "trend"
+  },
+  "http_reqs": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 85378,
+    "rate": 5688.358661189446
+   }
+  },
+  "vus": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "max": 50,
+    "value": 50,
+    "min": 50
+   }
+  },
+  "http_req_tls_handshaking": {
+   "contains": "time",
+   "values": {
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0,
+    "avg": 0,
+    "min": 0,
+    "med": 0
+   },
+   "type": "trend"
+  },
+  "http_req_receiving": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 0.2538160999999999,
+    "p(99)": 1.9519155699999748,
+    "max": 25.343271,
+    "avg": 0.13081858094591078,
+    "min": 0.00585,
+    "med": 0.042255,
+    "p(90)": 0.125254
+   }
+  },
+  "http_req_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 51.03064754999998,
+    "p(99)": 63.69223483,
+    "max": 88.43674,
+    "avg": 8.497236192625635,
+    "min": 0.134624,
+    "med": 3.997582,
+    "p(90)": 13.940858800000013
+   }
+  },
+  "http_req_waiting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 50.78441369999998,
+    "p(99)": 63.46908845999996,
+    "max": 84.447306,
+    "avg": 8.305283920600088,
+    "min": 0.106252,
+    "med": 3.874473,
+    "p(90)": 12.764510300000003
+   }
+  },
+  "http_req_failed": {
+   "type": "rate",
+   "contains": "default",
+   "values": {
+    "rate": 0,
+    "passes": 0,
+    "fails": 85378
+   }
+  },
+  "vus_max": {
+   "values": {
+    "value": 50,
+    "min": 50,
+    "max": 50
+   },
+   "type": "gauge",
+   "contains": "default"
+  },
+  "status_200": {
+   "values": {
+    "rate": 5688.358661189446,
+    "count": 85378
+   },
+   "type": "counter",
+   "contains": "default"
+  }
+ },
+ "rateguard": {
+  "label": "B vus=50 warmup",
+  "target": "http://app:8080",
+  "vus": 50,
+  "duration": "15s"
+ }
+}
