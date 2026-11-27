@@ -1,5 +1,7 @@
 # RateGuard
 
+[![CI](https://github.com/Shub-ways/rateguard/actions/workflows/ci.yml/badge.svg)](https://github.com/Shub-ways/rateguard/actions/workflows/ci.yml)
+
 A rate-limiting library and HTTP service: four classic algorithms behind one
 interface, enforced by a Spring Boot filter with standard rate-limit headers.
 A Redis backend enforces one shared quota across many instances.
@@ -18,8 +20,9 @@ A Redis backend enforces one shared quota across many instances.
 >   benchmarks.
 >
 > Numbers, method and limitations: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
-> and [docs/EVIDENCE.md](docs/EVIDENCE.md). The measurements come from a
-> 15 W laptop.
+> and [docs/EVIDENCE.md](docs/EVIDENCE.md). The investigation behind the
+> fix: [docs/CASE-STUDY.md](docs/CASE-STUDY.md). The measurements come from
+> a 15 W laptop. Release notes: [CHANGELOG.md](CHANGELOG.md).
 
 ## Architecture
 
@@ -44,6 +47,7 @@ flowchart LR
 | `rateguard-core` | Algorithms, `RateLimiter` interface, `RateLimitResult` | none (plain Java 25) |
 | `rateguard-redis` | Redis fixed window and token bucket (Lua scripts) | core, Spring Data Redis (no Spring Boot) |
 | `rateguard-service` | Spring Boot 4.1 HTTP service, filter, client identification, failure policy, metrics | core, redis, Spring Boot |
+| `benchmarks/jmh` | JMH microbenchmarks and heap measurement (not shipped) | core, redis, JMH |
 
 The core has no framework or network dependency, so it can be benchmarked
 with JMH on its own. The Redis limiters can be benchmarked without starting
@@ -76,10 +80,10 @@ mvn -DskipTests package
 
 # Authenticated mode (default): keys come from the environment, never from committed files
 $env:RATEGUARD_API_KEYS = "demo-key-123,demo-key-456"
-java -jar rateguard-service/target/rateguard-service-0.2.0-SNAPSHOT.jar
+java -jar rateguard-service/target/rateguard-service-1.0.0.jar
 
 # Local demo mode: one quota per client IP, no key needed
-java -jar rateguard-service/target/rateguard-service-0.2.0-SNAPSHOT.jar --spring.profiles.active=demo
+java -jar rateguard-service/target/rateguard-service-1.0.0.jar --spring.profiles.active=demo
 ```
 
 ```console
@@ -225,7 +229,9 @@ mvn clean test
 | service | 34 + 13 (Docker) | MockMvc and real Tomcat (see above); failure policy; backend selection. With Docker: 2 real instances on one Redis, 1,000 concurrent HTTP requests → exactly 100 × 200 and 900 × 429; Redis down, paused or connections killed |
 
 Tests marked "(Docker)" use Testcontainers and are **skipped automatically**
-when Docker isn't running.
+when Docker isn't running. CI (GitHub Actions, `ubuntu-latest`, JDK 25) has
+Docker and **fails the build if any test is skipped**, so every CI result
+covers all 128 tests.
 
 ## Roadmap
 
