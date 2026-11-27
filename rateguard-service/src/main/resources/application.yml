@@ -1,6 +1,14 @@
 spring:
   application:
     name: rateguard
+  data:
+    redis:
+      # Used only when rateguard.backend = REDIS. Connections are made lazily,
+      # so an unreachable Redis does not prevent startup (the failure mode applies).
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 500ms          # per-command timeout
+      connect-timeout: 500ms
 
 server:
   port: 8080
@@ -17,10 +25,19 @@ management:
     health:
       probes:
         enabled: true   # /actuator/health/liveness and /actuator/health/readiness
+  health:
+    redis:
+      # Redis reachability is reported via the rateguard.backend.available metric and
+      # logs instead, so a Redis outage does not mark instances unhealthy and get them
+      # restarted or removed while the configured failure mode is doing its job.
+      enabled: false
 
 rateguard:
   enabled: true
+  # IN_MEMORY (per instance) | REDIS (shared by all instances)
+  backend: IN_MEMORY
   # FIXED_WINDOW | SLIDING_WINDOW_LOG | SLIDING_WINDOW_COUNTER | TOKEN_BUCKET
+  # (REDIS backend supports FIXED_WINDOW and TOKEN_BUCKET)
   algorithm: FIXED_WINDOW
   limit: 5
   window: 60s
@@ -34,6 +51,8 @@ rateguard:
   excluded-paths:
     - /actuator/**
   eviction-interval: 30s
+  # Optional; when set, every protected response carries X-RateGuard-Instance.
+  instance-id: ""
   client-identification:
     # API_KEY (authenticated; missing/invalid key -> 401) | IP (local demos)
     mode: API_KEY
@@ -41,3 +60,12 @@ rateguard:
     # Comma-separated. Supply real keys via the RATEGUARD_API_KEYS environment
     # variable or a secret store; never commit them.
     api-keys: ${RATEGUARD_API_KEYS:}
+  redis:
+    key-prefix: rateguard
+    # FAIL_CLOSED: 503 + Retry-After while Redis is unreachable (protection first)
+    # FAIL_OPEN:   requests pass unlimited while Redis is unreachable (availability first)
+    failure-mode: FAIL_CLOSED
+    unavailable-retry-after: 5s
+    # REDIS_SERVER: windows/refills use Redis TIME (one clock for all instances)
+    # APPLICATION:  each instance's own clock (tests only; sensitive to clock skew)
+    time-source: REDIS_SERVER

@@ -1,23 +1,47 @@
 # RateGuard
 
 A rate-limiting library and HTTP service: four classic algorithms behind one
-interface, enforced by a Spring Boot filter with standard rate-limit headers,
-with a Redis backend for multi-instance deployments to follow.
+interface, enforced by a Spring Boot filter with standard rate-limit headers.
+A Redis backend enforces one shared quota across many instances.
 
-> **Status (Milestone 3 of 5):** core algorithms and HTTP service complete.
-> 94 automated tests (68 core + 26 service), including concurrency and
-> linearizability checks. Redis backend and benchmarks are next. Performance
-> numbers will be added only once measured.
+> **Status (Milestone 4 of 5, verified):** distributed Redis backend for
+> fixed window and token bucket, with atomic Lua scripts and fail-open or
+> fail-closed handling. 128 automated tests run and pass, 0 skipped,
+> including Testcontainers tests against a real Redis.
+>
+> Verified results: 1,000 concurrent HTTP requests across **2 instances**
+> gave exactly 100 accepted and 900 rejected. The Docker Compose stack
+> (Redis + 2 instances + nginx) enforces one shared quota. See
+> [docs/EVIDENCE.md](docs/EVIDENCE.md). No performance numbers are claimed
+> yet; benchmarks are Milestone 5.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    C[Clients] -->|"X-API-Key"| P[nginx<br/>round robin<br/>no retries]
+    P --> A[app-a<br/>Spring Boot]
+    P --> B[app-b<br/>Spring Boot]
+    subgraph instance [each instance]
+        F[RateLimitFilter<br/>401 / 429 / 503] --> L{{RateLimiter}}
+    end
+    A -.- instance
+    B -.- instance
+    L -->|"backend=IN_MEMORY"| M[(ConcurrentHashMap<br/>per instance)]
+    L -->|"backend=REDIS<br/>1 EVALSHA per request"| R[(Redis 7.4<br/>shared state, TTL keys)]
+```
 
 ## Modules
 
 | Module | Contents | Dependencies |
 | --- | --- | --- |
 | `rateguard-core` | Algorithms, `RateLimiter` interface, `RateLimitResult` | none (plain Java 25) |
-| `rateguard-service` | Spring Boot 4.1 HTTP service, filter, client identification, metrics | core, Spring Boot |
+| `rateguard-redis` | Redis fixed window and token bucket (Lua scripts) | core, Spring Data Redis (no Spring Boot) |
+| `rateguard-service` | Spring Boot 4.1 HTTP service, filter, client identification, failure policy, metrics | core, redis, Spring Boot |
 
-The core has no framework dependency, so it can be benchmarked with JMH in
-isolation and reused by a Redis backend.
+The core has no framework or network dependency, so it can be benchmarked
+with JMH on its own. The Redis limiters can be benchmarked without starting
+Spring Boot.
 
 ## Algorithms
 
@@ -28,7 +52,14 @@ isolation and reused by a Redis backend.
 | Sliding-window counter | `SlidingWindowCounterRateLimiter` | smoothed approximation |
 | Token bucket | `TokenBucketRateLimiter` | up to capacity, then refill rate |
 
+All four run in memory. **Fixed window and token bucket also run on Redis**
+(`RedisFixedWindowRateLimiter`, `RedisTokenBucketRateLimiter`). The sliding
+windows are in-memory only, and choosing them together with `backend=REDIS`
+stops the app at startup with a clear error.
+
 Complexity, memory and trade-offs: [docs/ALGORITHMS.md](docs/ALGORITHMS.md).
+Redis design (atomicity, keys, TTL, time source, failure modes):
+[docs/DISTRIBUTED.md](docs/DISTRIBUTED.md).
 
 ## Running the service
 
@@ -67,6 +98,8 @@ Retry-After: 6
 | Allowed | 200 (from the endpoint) | `X-RateLimit-Limit`, `X-RateLimit-Remaining` |
 | Over the limit | 429 | the above, plus `Retry-After` (whole seconds, rounded up, never 0) |
 | API-key mode, key missing or unknown | 401 | none; no quota is consumed and there is **no fallback to IP** |
+| Redis unavailable, `FAIL_CLOSED` | 503 `rate_limiter_unavailable` | `Retry-After`; never reported as a 429 |
+| Redis unavailable, `FAIL_OPEN` | request proceeds | no `X-RateLimit-*` headers, because no decision was made |
 | Excluded path (`/actuator/**` by default) | unaffected | none |
 
 `Retry-After` is the exact wait in milliseconds, rounded up to whole seconds
@@ -83,7 +116,8 @@ Invalid values stop the application at startup.
 | Property | Default | Meaning |
 | --- | --- | --- |
 | `rateguard.enabled` | `true` | Master switch for the filter |
-| `rateguard.algorithm` | `FIXED_WINDOW` | `FIXED_WINDOW`, `SLIDING_WINDOW_LOG`, `SLIDING_WINDOW_COUNTER`, `TOKEN_BUCKET` |
+| `rateguard.backend` | `IN_MEMORY` | `IN_MEMORY` (per instance) or `REDIS` (shared by all instances) |
+| `rateguard.algorithm` | `FIXED_WINDOW` | `FIXED_WINDOW`, `SLIDING_WINDOW_LOG`, `SLIDING_WINDOW_COUNTER`, `TOKEN_BUCKET` (Redis: first and last only) |
 | `rateguard.limit` | `5` | Requests per window |
 | `rateguard.window` | `60s` | Window length (`500ms`, `10s`, `1m`, ...) |
 | `rateguard.token-bucket.capacity` | `limit` | Max burst (token bucket only) |
@@ -95,6 +129,13 @@ Invalid values stop the application at startup.
 | `rateguard.client-identification.mode` | `API_KEY` | `API_KEY` (authenticated) or `IP` (demos) |
 | `rateguard.client-identification.api-key-header` | `X-API-Key` | Header carrying the key |
 | `rateguard.client-identification.api-keys` | `${RATEGUARD_API_KEYS:}` | Comma-separated valid keys; `API_KEY` mode refuses to start without any |
+| `rateguard.redis.key-prefix` | `rateguard` | Namespace for all Redis keys |
+| `rateguard.redis.failure-mode` | `FAIL_CLOSED` | `FAIL_CLOSED` (503 while Redis is down) or `FAIL_OPEN` (requests pass, unlimited) |
+| `rateguard.redis.unavailable-retry-after` | `5s` | `Retry-After` sent with the 503 |
+| `rateguard.redis.time-source` | `REDIS_SERVER` | `REDIS_SERVER` (Redis `TIME`, the same clock for all instances) or `APPLICATION` (tests) |
+| `rateguard.instance-id` | empty | If set, echoed as `X-RateGuard-Instance` (demo only) |
+| `spring.data.redis.host` / `port` | `${REDIS_HOST:localhost}` / `${REDIS_PORT:6379}` | Redis location |
+| `spring.data.redis.timeout` / `connect-timeout` | `500ms` / `500ms` | Upper bound on how long a request waits for Redis before the failure mode applies |
 
 Behind a reverse proxy in `IP` mode, set `server.forward-headers-strategy=native`
 so the container takes the client IP from trusted proxies. The service never
@@ -105,12 +146,41 @@ parses `X-Forwarded-For` itself, because clients can forge it.
 | Endpoint / metric | Purpose |
 | --- | --- |
 | `/actuator/health`, `/health/liveness`, `/health/readiness` | Probes, never rate limited |
-| `rateguard.requests{algorithm, outcome}` | Counter. `outcome` is `allowed`, `rejected` or `unauthenticated` |
+| `rateguard.requests{algorithm, outcome}` | Counter. `outcome` is `allowed`, `rejected`, `unauthenticated`, `fail_open` or `fail_closed` |
 | `rateguard.decision{algorithm}` | Timer around `RateLimiter.tryAcquire` |
 | `rateguard.clients.tracked` | Gauge of in-memory client records |
+| `rateguard.backend.available` | 1 if the last decision reached the backend, otherwise 0 |
 
 Metric tags are deliberately low-cardinality: client identifiers and API keys
 never appear in tags or logs. Only SHA-256 digests of keys are held in memory.
+
+## Distributed deployment (Docker Compose)
+
+Redis, two app instances (`app-a`, `app-b`) and an nginx round-robin load
+balancer. Only nginx publishes a port. Redis and the apps sit on an internal
+network. API keys come from your shell or a git-ignored `.env` file and are
+never committed.
+
+```powershell
+mvn -DskipTests package                    # builds the jar the image uses
+copy .env.example .env                     # then put your own random keys in .env
+docker compose up --build -d               # waits for Redis and both apps to be healthy
+docker compose ps
+
+./scripts/verify-shared-quota.ps1 -Requests 12
+# Verified 2026-11-26: 5 x 200 then 7 x 429, alternating app-a/app-b (6/6),
+# Remaining 4->0 across both instances, all inside one window (Redis clock).
+# With backend=IN_MEMORY the same run would allow up to 10.
+
+docker compose logs app-a app-b            # look for "RateGuard: backend=REDIS ..."
+docker compose stop redis                  # simulate an outage: 503 (FAIL_CLOSED) or 200 (FAIL_OPEN)
+docker compose start redis                 # recovery: normal 200/429 again
+
+docker compose down                        # stop and remove everything
+```
+
+Settings such as `RATEGUARD_ALGORITHM=TOKEN_BUCKET`, `RATEGUARD_LIMIT`,
+`RATEGUARD_WINDOW` and `RATEGUARD_REDIS_FAILUREMODE` can be set in `.env`.
 
 ## Design decisions
 
@@ -129,6 +199,12 @@ never appear in tags or logs. Only SHA-256 digests of keys are held in memory.
   HTTP.
 - **Injectable `java.time.Clock` everywhere,** so time-dependent HTTP tests
   are deterministic and run in milliseconds.
+- **One atomic Lua script per request on Redis.** The read, check, update and
+  TTL happen in one step, using Redis server time by default, so instances
+  never race and app-server clock skew doesn't matter.
+- **Infrastructure failure is not a rate-limit violation.** Redis outages
+  produce 503 (`FAIL_CLOSED`) or pass-through (`FAIL_OPEN`), never a 429, and
+  they don't make health probes fail.
 
 ## Tests
 
@@ -139,7 +215,11 @@ mvn clean test
 | Module | Tests | Highlights |
 | --- | --- | --- |
 | core | 68 | contract tests across all 4 algorithms, exact `retryAfter`, 16-thread exact-limit test, linearizability replay (8 threads × 2,000 requests) |
-| service | 26 | MockMvc: 200→429 sequence, headers, `Retry-After` rounding, window transition, 401 cases, health exclusion, eviction, metric tags, no secrets in logs. Real Tomcat: 400 concurrent requests from 32 client threads across 2 keys |
+| redis | 13 (Docker) | same decisions as in-memory on 3,000 random requests; 1,000 concurrent → exactly 100; server-clock expiry and refill; TTL; key hashing; backwards clock; unreachable Redis |
+| service | 34 + 13 (Docker) | MockMvc and real Tomcat (see above); failure policy; backend selection. With Docker: 2 real instances on one Redis, 1,000 concurrent HTTP requests → exactly 100 × 200 and 900 × 429; Redis down, paused or connections killed |
+
+Tests marked "(Docker)" use Testcontainers and are **skipped automatically**
+when Docker isn't running.
 
 ## Roadmap
 
@@ -148,7 +228,7 @@ mvn clean test
 | 1. Foundation | Git setup, fixed-window limiter | done |
 | 2. Core algorithms | 4 algorithms, `RateLimitResult`, contract tests | done |
 | 3. HTTP service | Spring Boot filter, 429 + headers, API-key/IP identification, eviction, metrics | done |
-| 4. Distributed | Redis + Lua backends, Docker Compose with 2 app instances, shared quota | next |
+| 4. Distributed | Redis + Lua backends, failure modes, Docker Compose with 2 app instances, shared quota | done, verified with Docker ([EVIDENCE](docs/EVIDENCE.md)) |
 | 5. Performance | JMH and k6 measurements, write-up | planned |
 
 Metrics to measure in milestone 5 (none are claimed yet): decisions/sec per
