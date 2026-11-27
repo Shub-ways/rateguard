@@ -125,7 +125,7 @@ Generated summary: [benchmarks/results/SUMMARY.md](../benchmarks/results/SUMMARY
 | Fact | Workload | Trials | Evidence |
 | --- | --- | --- | --- |
 | **Lua-script SHA lock fix: +112.8% / +116.7% req/s, p99 −26.7% / −26.9%, p50 −74.7% / −74.3%** (2,488 req/s vs 1,169 and 1,148; p99 79.2 ms vs 108.0 and 108.2 ms) | k6, scenario C (1 instance + Redis), 50 VUs, interleaved images in one session, after-fix round compared with the before-fix rounds on either side | 3 × 30 s per round, 5 rounds | `results/k6/*-ab{3,4,5}-*` |
-| Cause of the plateau: **47 of 81** sampled request threads parked in `DefaultRedisScript.getSha1()` before the fix, **0 of 81** after | k6 C, 25 VUs, 3 thread dumps each | 1 run each | BENCHMARKS.md "Finding" |
+| Cause of the plateau: **47 of 81** sampled request threads parked in `DefaultRedisScript.getSha1()` before the fix, **0 of 81** after | k6 C, 25 VUs, 3 thread dumps each | 1 run each | BENCHMARKS.md "Finding" (counts observed live; raw dumps **not** committed) |
 | In-memory limiter overhead vs no limiter at saturation (50 VUs): **−1.2% req/s, within noise** (ranges overlap); at 10 VUs −8.4% | k6 A vs B | 3 × 30 s | `results/k6/20261126-234916` |
 | HTTP capacity with no limiter / in-memory limiter: **6,544 / 6,468 req/s** at 50 VUs, p99 60.3 / 62.3 ms, 0 errors | k6 A / B, 1 app container (2 CPUs), 50 keys | 3 × 30 s | same |
 | Redis path after the fix: **2,488 req/s**, p99 79.2 ms at 50 VUs, 0 errors | k6 C | 3 × 30 s | `ab4-after-fix` |
