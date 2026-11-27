@@ -4,6 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/Shub-ways/rateguard)](https://github.com/Shub-ways/rateguard/releases/tag/v1.0.0)
 ![Java 25](https://img.shields.io/badge/Java-25-blue)
 ![Spring Boot 4.1](https://img.shields.io/badge/Spring%20Boot-4.1-brightgreen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 **A distributed API rate limiter in Java and Spring Boot.** Four
 rate-limiting algorithms behind one interface. A Redis backend lets any
@@ -155,5 +156,9 @@ Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-A license hasn't been chosen yet. Until one is added, the default copyright
-rules apply: the code may be viewed, but not reused, without permission.
+[MIT](LICENSE) © 2026 Shubham Kumar.
+
+Third-party dependencies keep their own licenses. Spring Boot, Spring Data
+Redis and Lettuce are Apache-2.0 or MIT. JMH, which is used only by the
+benchmark module and not shipped with the service, is GPL-2.0 with the
+Classpath Exception.

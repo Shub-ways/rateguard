@@ -21,6 +21,8 @@ pull requests are welcome.
    [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 5. **Merging:** PRs are merged with a merge commit, so history is never
    rewritten.
+6. **License:** by contributing, you agree that your contributions are
+   licensed under the project's [MIT License](LICENSE).
 
 ## Reporting problems
 
