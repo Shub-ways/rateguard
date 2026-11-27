@@ -1,0 +1,11 @@
+{
+    "hostCpuPercentBeforeTrial":  15,
+    "cfsThrottling":  {
+                          "app":  {
+                                      "periods":  327,
+                                      "throttledPeriods":  297,
+                                      "throttledMs":  36861,
+                                      "cpuUsageMs":  60153
+                                  }
+                      }
+}

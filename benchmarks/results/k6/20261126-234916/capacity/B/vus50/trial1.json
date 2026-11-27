@@ -1,0 +1,219 @@
+{
+ "root_group": {
+  "name": "",
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": [],
+  "checks": []
+ },
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "isStdOutTTY": false,
+  "isStdErrTTY": false,
+  "testRunDurationMs": 30014.174081
+ },
+ "metrics": {
+  "data_sent": {
+   "contains": "data",
+   "values": {
+    "count": 26261949,
+    "rate": 874984.896440136
+   },
+   "type": "counter"
+  },
+  "vus_max": {
+   "values": {
+    "value": 50,
+    "min": 50,
+    "max": 50
+   },
+   "type": "gauge",
+   "contains": "default"
+  },
+  "http_req_tls_handshaking": {
+   "values": {
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0,
+    "avg": 0,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "http_req_receiving": {
+   "contains": "time",
+   "values": {
+    "min": 0.005552,
+    "med": 0.032805,
+    "p(90)": 0.09774,
+    "p(95)": 0.174146,
+    "p(99)": 1.1010882000000253,
+    "max": 30.733679,
+    "avg": 0.09021296391117022
+   },
+   "type": "trend"
+  },
+  "http_req_sending": {
+   "values": {
+    "p(90)": 0.030272,
+    "p(95)": 0.050041,
+    "p(99)": 0.3026562000000023,
+    "max": 23.370701,
+    "avg": 0.03899679471070537,
+    "min": 0.00193,
+    "med": 0.011764
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "http_req_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 7.155387777194375,
+    "min": 0.127474,
+    "med": 3.092681,
+    "p(90)": 10.44865,
+    "p(95)": 46.328246,
+    "p(99)": 62.28063720000002,
+    "max": 103.851278
+   }
+  },
+  "data_received": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 47065458,
+    "rate": 1568107.7171400178
+   }
+  },
+  "http_reqs": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 203581,
+    "rate": 6782.828654574698
+   }
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "med": 3.092681,
+    "p(90)": 10.44865,
+    "p(95)": 46.328246,
+    "p(99)": 62.28063720000002,
+    "max": 103.851278,
+    "avg": 7.155387777194375,
+    "min": 0.127474
+   }
+  },
+  "http_req_failed": {
+   "type": "rate",
+   "contains": "default",
+   "values": {
+    "rate": 0,
+    "passes": 0,
+    "fails": 203581
+   }
+  },
+  "iteration_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0.174299,
+    "med": 3.246871,
+    "p(90)": 10.940241,
+    "p(95)": 46.617899,
+    "p(99)": 62.56383860000007,
+    "max": 103.990297,
+    "avg": 7.343497584509444
+   }
+  },
+  "http_req_connecting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "max": 11.620491,
+    "avg": 0.006274347827154801,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0.10714280000001256
+   }
+  },
+  "http_req_waiting": {
+   "values": {
+    "avg": 7.026178018572396,
+    "min": 0.104966,
+    "med": 2.998731,
+    "p(90)": 10.037919,
+    "p(95)": 46.163802,
+    "p(99)": 62.104206400000024,
+    "max": 103.782357
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "iterations": {
+   "values": {
+    "count": 203581,
+    "rate": 6782.828654574698
+   },
+   "type": "counter",
+   "contains": "default"
+  },
+  "status_200": {
+   "values": {
+    "count": 203581,
+    "rate": 6782.828654574698
+   },
+   "type": "counter",
+   "contains": "default"
+  },
+  "http_req_blocked": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(99)": 0.2552640000000056,
+    "max": 22.863264,
+    "avg": 0.016537331062329155,
+    "min": 0.000562,
+    "med": 0.003828,
+    "p(90)": 0.008939,
+    "p(95)": 0.01168
+   }
+  },
+  "vus": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "value": 50,
+    "min": 50,
+    "max": 50
+   }
+  }
+ },
+ "rateguard": {
+  "label": "B vus=50 trial=1",
+  "target": "http://app:8080",
+  "vus": 50,
+  "duration": "30s"
+ }
+}

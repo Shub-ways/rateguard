@@ -1,0 +1,219 @@
+{
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "testRunDurationMs": 60012.558153,
+  "isStdOutTTY": false,
+  "isStdErrTTY": false
+ },
+ "metrics": {
+  "iteration_duration": {
+   "contains": "time",
+   "values": {
+    "p(90)": 61.69274280000002,
+    "p(95)": 74.03828505,
+    "p(99)": 90.66173427999998,
+    "max": 299.82945,
+    "avg": 12.814463105267711,
+    "min": 0.188545,
+    "med": 3.6198185
+   },
+   "type": "trend"
+  },
+  "http_req_connecting": {
+   "contains": "time",
+   "values": {
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0.13254887999999743,
+    "max": 29.164355,
+    "avg": 0.009939787725910077,
+    "min": 0,
+    "med": 0
+   },
+   "type": "trend"
+  },
+  "http_req_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(90)": 61.38926580000001,
+    "p(95)": 73.67094019999993,
+    "p(99)": 90.24123304999992,
+    "max": 299.609988,
+    "avg": 12.57645338125932,
+    "min": 0.159471,
+    "med": 3.412248
+   }
+  },
+  "http_reqs": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 116750,
+    "rate": 1945.4261506791595
+   }
+  },
+  "http_req_failed": {
+   "type": "rate",
+   "contains": "default",
+   "values": {
+    "rate": 0,
+    "passes": 0,
+    "fails": 116750
+   }
+  },
+  "data_received": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 16250176,
+    "rate": 270779.5918076134
+   }
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 12.57645338125932,
+    "min": 0.159471,
+    "med": 3.412248,
+    "p(90)": 61.38926580000001,
+    "p(95)": 73.67094019999993,
+    "p(99)": 90.24123304999992,
+    "max": 299.609988
+   }
+  },
+  "http_req_receiving": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(99)": 1.1193488199999944,
+    "max": 47.250041,
+    "avg": 0.09988133340470895,
+    "min": 0.005105,
+    "med": 0.041143,
+    "p(90)": 0.1300085000000001,
+    "p(95)": 0.2218357999999998
+   }
+  },
+  "vus_max": {
+   "values": {
+    "min": 25,
+    "max": 25,
+    "value": 25
+   },
+   "type": "gauge",
+   "contains": "default"
+  },
+  "status_200": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 116750,
+    "rate": 1945.4261506791595
+   }
+  },
+  "iterations": {
+   "values": {
+    "count": 116750,
+    "rate": 1945.4261506791595
+   },
+   "type": "counter",
+   "contains": "default"
+  },
+  "http_req_blocked": {
+   "contains": "time",
+   "values": {
+    "max": 29.75849,
+    "avg": 0.022519149319058206,
+    "min": 0.000561,
+    "med": 0.004800499999999999,
+    "p(90)": 0.011536,
+    "p(95)": 0.015164,
+    "p(99)": 0.33350471999999964
+   },
+   "type": "trend"
+  },
+  "data_sent": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 15060750,
+    "rate": 250959.97343761157
+   }
+  },
+  "vus": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "value": 25,
+    "min": 25,
+    "max": 25
+   }
+  },
+  "http_req_sending": {
+   "values": {
+    "p(99)": 0.32283723999999986,
+    "max": 43.323165,
+    "avg": 0.03997855323340479,
+    "min": 0.001902,
+    "med": 0.014686,
+    "p(90)": 0.038913100000000006,
+    "p(95)": 0.06407119999999995
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "http_req_tls_handshaking": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 0,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0
+   }
+  },
+  "http_req_waiting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "max": 299.523113,
+    "avg": 12.43659349462091,
+    "min": 0.141187,
+    "med": 3.29062,
+    "p(90)": 61.23889700000006,
+    "p(95)": 73.49643524999999,
+    "p(99)": 90.06844054999998
+   }
+  }
+ },
+ "rateguard": {
+  "label": "A stack warm-up",
+  "target": "http://app:8080",
+  "vus": 25,
+  "duration": "60s"
+ },
+ "root_group": {
+  "checks": [],
+  "name": "",
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": []
+ }
+}

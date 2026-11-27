@@ -1,0 +1,524 @@
+﻿java.exe : WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+At D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\jmh\run-jmh.ps1:50 char:5
++     & java -jar $jar $pattern -t $threads @iter -rf json -rff $json @ ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A term...has been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils 
+(file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = FIXED_WINDOW, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 0.00% complete, ETA 00:02:08
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 7312202.013 ops/s
+# Warmup Iteration   2: 6381330.968 ops/s
+# Warmup Iteration   3: 6703602.129 ops/s
+Iteration   1: 6647460.052 ops/s
+                 allowed:  993.345 ops/s
+                 rejected: 6649400.288 ops/s
+
+Iteration   2: 6478508.187 ops/s
+                 allowed:  996.156 ops/s
+                 rejected: 6479926.433 ops/s
+
+Iteration   3: 6845733.152 ops/s
+                 allowed:  993.228 ops/s
+                 rejected: 6846315.692 ops/s
+
+Iteration   4: 6791761.848 ops/s
+                 allowed:  994.816 ops/s
+                 rejected: 6799180.444 ops/s
+
+Iteration   5: 6695155.761 ops/s
+                 allowed:  997.103 ops/s
+                 rejected: 6702239.626 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  6691723.800 ±(99.9%) 548491.913 ops/s [Average]
+  (min, avg, max) = (6478508.187, 6691723.800, 6845733.152), stdev = 142441.608
+  CI (99.9%): [6143231.887, 7240215.713] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  994.930 ±(99.9%) 6.571 ops/s [Average]
+  (min, avg, max) = (993.228, 994.930, 997.103), stdev = 1.706
+  CI (99.9%): [988.359, 1001.501] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  6695412.497 ±(99.9%) 551790.484 ops/s [Average]
+  (min, avg, max) = (6479926.433, 6695412.497, 6846315.692), stdev = 143298.236
+  CI (99.9%): [6143622.013, 7247202.981] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = FIXED_WINDOW, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 12.50% complete, ETA 00:01:56
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 39379812.783 ops/s
+# Warmup Iteration   2: 40236343.550 ops/s
+# Warmup Iteration   3: 37902167.530 ops/s
+Iteration   1: 36625643.734 ops/s
+                 allowed:  36634983.430 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 33875017.885 ops/s
+                 allowed:  33881268.400 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 29916645.662 ops/s
+                 allowed:  29929675.490 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 27541898.430 ops/s
+                 allowed:  27564076.172 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 23332037.304 ops/s
+                 allowed:  23372873.467 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  30258248.603 ±(99.9%) 20109468.985 ops/s [Average]
+  (min, avg, max) = (23332037.304, 30258248.603, 36625643.734), stdev = 5222365.235
+  CI (99.9%): [10148779.618, 50367717.588] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  30276575.392 ±(99.9%) 20060548.146 ops/s [Average]
+  (min, avg, max) = (23372873.467, 30276575.392, 36634983.430), stdev = 5209660.648
+  CI (99.9%): [10216027.246, 50337123.538] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = SLIDING_WINDOW_LOG, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 25.00% complete, ETA 00:01:40
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 9031184.031 ops/s
+# Warmup Iteration   2: 6595594.209 ops/s
+# Warmup Iteration   3: 5652260.579 ops/s
+Iteration   1: 5663679.755 ops/s
+                 allowed:  1362.429 ops/s
+                 rejected: 5664178.831 ops/s
+
+Iteration   2: 5318230.644 ops/s
+                 allowed:  994.737 ops/s
+                 rejected: 5318495.793 ops/s
+
+Iteration   3: 5166513.806 ops/s
+                 allowed:  997.163 ops/s
+                 rejected: 5172414.089 ops/s
+
+Iteration   4: 5375074.995 ops/s
+                 allowed:  997.969 ops/s
+                 rejected: 5378694.621 ops/s
+
+Iteration   5: 5142113.680 ops/s
+                 allowed:  995.195 ops/s
+                 rejected: 5147354.272 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  5333122.576 ±(99.9%) 806552.977 ops/s [Average]
+  (min, avg, max) = (5142113.680, 5333122.576, 5663679.755), stdev = 209459.247
+  CI (99.9%): [4526569.599, 6139675.553] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  1069.499 ±(99.9%) 630.575 ops/s [Average]
+  (min, avg, max) = (994.737, 1069.499, 1362.429), stdev = 163.758
+  CI (99.9%): [438.923, 1700.074] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  5336227.521 ±(99.9%) 798899.294 ops/s [Average]
+  (min, avg, max) = (5147354.272, 5336227.521, 5664178.831), stdev = 207471.610
+  CI (99.9%): [4537328.227, 6135126.815] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = SLIDING_WINDOW_LOG, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 37.50% complete, ETA 00:01:23
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 18648238.837 ops/s
+# Warmup Iteration   2: 16166261.526 ops/s
+# Warmup Iteration   3: 15909322.436 ops/s
+Iteration   1: 16018023.748 ops/s
+                 allowed:  16038574.419 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 16548349.583 ops/s
+                 allowed:  16559530.136 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 17386366.607 ops/s
+                 allowed:  17397427.759 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 17907528.078 ops/s
+                 allowed:  17915305.241 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 17967272.888 ops/s
+                 allowed:  17982349.137 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  17165508.181 ±(99.9%) 3301129.369 ops/s [Average]
+  (min, avg, max) = (16018023.748, 17165508.181, 17967272.888), stdev = 857292.814
+  CI (99.9%): [13864378.812, 20466637.549] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  17178637.338 ±(99.9%) 3289731.724 ops/s [Average]
+  (min, avg, max) = (16038574.419, 17178637.338, 17982349.137), stdev = 854332.882
+  CI (99.9%): [13888905.615, 20468369.062] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = SLIDING_WINDOW_COUNTER, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 50.00% complete, ETA 00:01:06
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 8867170.167 ops/s
+# Warmup Iteration   2: 6211763.238 ops/s
+# Warmup Iteration   3: 5157226.377 ops/s
+Iteration   1: 5639380.123 ops/s
+                 allowed:  1005.129 ops/s
+                 rejected: 5650225.201 ops/s
+
+Iteration   2: 5598900.810 ops/s
+                 allowed:  1004.776 ops/s
+                 rejected: 5605890.714 ops/s
+
+Iteration   3: 5329076.077 ops/s
+                 allowed:  1000.921 ops/s
+                 rejected: 5328873.553 ops/s
+
+Iteration   4: 4970318.959 ops/s
+                 allowed:  1001.939 ops/s
+                 rejected: 4971368.135 ops/s
+
+Iteration   5: 5014063.352 ops/s
+                 allowed:  1001.096 ops/s
+                 rejected: 5015325.283 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  5310347.865 ±(99.9%) 1210474.808 ops/s [Average]
+  (min, avg, max) = (4970318.959, 5310347.865, 5639380.123), stdev = 314356.464
+  CI (99.9%): [4099873.057, 6520822.672] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  1002.773 ±(99.9%) 7.821 ops/s [Average]
+  (min, avg, max) = (1000.921, 1002.773, 1005.129), stdev = 2.031
+  CI (99.9%): [994.952, 1010.593] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  5314336.577 ±(99.9%) 1225375.414 ops/s [Average]
+  (min, avg, max) = (4971368.135, 5314336.577, 5650225.201), stdev = 318226.104
+  CI (99.9%): [4088961.163, 6539711.991] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = SLIDING_WINDOW_COUNTER, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 62.50% complete, ETA 00:00:50
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 30150978.478 ops/s
+# Warmup Iteration   2: 32638333.819 ops/s
+# Warmup Iteration   3: 28167038.507 ops/s
+Iteration   1: 28291189.280 ops/s
+                 allowed:  28302855.327 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 29013902.394 ops/s
+                 allowed:  29024744.094 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 30968803.888 ops/s
+                 allowed:  30986063.827 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 29180307.997 ops/s
+                 allowed:  29232943.099 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 29229483.470 ops/s
+                 allowed:  29288062.553 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  29336737.406 ±(99.9%) 3800747.410 ops/s [Average]
+  (min, avg, max) = (28291189.280, 29336737.406, 30968803.888), stdev = 987042.033
+  CI (99.9%): [25535989.995, 33137484.816] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  29366933.780 ±(99.9%) 3799823.262 ops/s [Average]
+  (min, avg, max) = (28302855.327, 29366933.780, 30986063.827), stdev = 986802.034
+  CI (99.9%): [25567110.519, 33166757.042] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = TOKEN_BUCKET, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 75.00% complete, ETA 00:00:33
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 7926298.691 ops/s
+# Warmup Iteration   2: 7114093.122 ops/s
+# Warmup Iteration   3: 8335705.084 ops/s
+Iteration   1: 7223816.281 ops/s
+                 allowed:  1002.630 ops/s
+                 rejected: 7224235.073 ops/s
+
+Iteration   2: 7408058.406 ops/s
+                 allowed:  1002.562 ops/s
+                 rejected: 7408310.068 ops/s
+
+Iteration   3: 7550133.111 ops/s
+                 allowed:  1003.123 ops/s
+                 rejected: 7552901.976 ops/s
+
+Iteration   4: 7463124.019 ops/s
+                 allowed:  1003.861 ops/s
+                 rejected: 7470266.662 ops/s
+
+Iteration   5: 6741828.825 ops/s
+                 allowed:  1002.754 ops/s
+                 rejected: 6742769.956 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  7277392.128 ±(99.9%) 1241281.929 ops/s [Average]
+  (min, avg, max) = (6741828.825, 7277392.128, 7550133.111), stdev = 322356.975
+  CI (99.9%): [6036110.199, 8518674.058] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  1002.986 ±(99.9%) 2.060 ops/s [Average]
+  (min, avg, max) = (1002.562, 1002.986, 1003.861), stdev = 0.535
+  CI (99.9%): [1000.926, 1005.045] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  7279696.747 ±(99.9%) 1246065.270 ops/s [Average]
+  (min, avg, max) = (6742769.956, 7279696.747, 7552901.976), stdev = 323599.194
+  CI (99.9%): [6033631.477, 8525762.017] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput
+# Parameters: (algorithm = TOKEN_BUCKET, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 87.50% complete, ETA 00:00:16
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 30395749.104 ops/s
+# Warmup Iteration   2: 35683787.986 ops/s
+# Warmup Iteration   3: 33084181.772 ops/s
+Iteration   1: 36057518.292 ops/s
+                 allowed:  36074483.999 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   2: 35805048.838 ops/s
+                 allowed:  35830202.272 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   3: 34226427.532 ops/s
+                 allowed:  34236711.568 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   4: 33875800.702 ops/s
+                 allowed:  33885776.907 ops/s
+                 rejected: ≈ 0 ops/s
+
+Iteration   5: 35292655.885 ops/s
+                 allowed:  35305995.817 ops/s
+                 rejected: ≈ 0 ops/s
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput":
+  35051490.250 ±(99.9%) 3703970.319 ops/s [Average]
+  (min, avg, max) = (33875800.702, 35051490.250, 36057518.292), stdev = 961909.329
+  CI (99.9%): [31347519.930, 38755460.569] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:allowed":
+  35066634.113 ±(99.9%) 3723040.502 ops/s [Average]
+  (min, avg, max) = (33885776.907, 35066634.113, 36074483.999), stdev = 966861.795
+  CI (99.9%): [31343593.611, 38789674.615] (assumes normal distribution)
+
+Secondary result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.throughput:rejected":
+  ≈ 0 ops/s
+
+
+# Run complete. Total time: 00:02:13
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                                                (algorithm)  (keys)  (limit)  (spreadKeys)  (windowMs)   Mode  Cnt         Score          Error  Units
+InMemoryLimiterBenchmark.throughput                     FIXED_WINDOW     HOT     1000       1048576        1000  thrpt    5   6691723.800 ±   548491.913  ops/s
+InMemoryLimiterBenchmark.throughput:allowed             FIXED_WINDOW     HOT     1000       1048576        1000  thrpt    5       994.930 ±        6.571  ops/s
+InMemoryLimiterBenchmark.throughput:rejected            FIXED_WINDOW     HOT     1000       1048576        1000  thrpt    5   6695412.497 ±   551790.484  ops/s
+InMemoryLimiterBenchmark.throughput                     FIXED_WINDOW  SPREAD     1000       1048576        1000  thrpt    5  30258248.603 ± 20109468.985  ops/s
+InMemoryLimiterBenchmark.throughput:allowed             FIXED_WINDOW  SPREAD     1000       1048576        1000  thrpt    5  30276575.392 ± 20060548.146  ops/s
+InMemoryLimiterBenchmark.throughput:rejected            FIXED_WINDOW  SPREAD     1000       1048576        1000  thrpt    5           ≈ 0                 ops/s
+InMemoryLimiterBenchmark.throughput               SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  thrpt    5   5333122.576 ±   806552.977  ops/s
+InMemoryLimiterBenchmark.throughput:allowed       SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  thrpt    5      1069.499 ±      630.575  ops/s
+InMemoryLimiterBenchmark.throughput:rejected      SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  thrpt    5   5336227.521 ±   798899.294  ops/s
+InMemoryLimiterBenchmark.throughput               SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  thrpt    5  17165508.181 ±  3301129.369  ops/s
+InMemoryLimiterBenchmark.throughput:allowed       SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  thrpt    5  17178637.338 ±  3289731.724  ops/s
+InMemoryLimiterBenchmark.throughput:rejected      SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  thrpt    5           ≈ 0                 ops/s
+InMemoryLimiterBenchmark.throughput           SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  thrpt    5   5310347.865 ±  1210474.808  ops/s
+InMemoryLimiterBenchmark.throughput:allowed   SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  thrpt    5      1002.773 ±        7.821  ops/s
+InMemoryLimiterBenchmark.throughput:rejected  SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  thrpt    5   5314336.577 ±  1225375.414  ops/s
+InMemoryLimiterBenchmark.throughput           SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  thrpt    5  29336737.406 ±  3800747.410  ops/s
+InMemoryLimiterBenchmark.throughput:allowed   SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  thrpt    5  29366933.780 ±  3799823.262  ops/s
+InMemoryLimiterBenchmark.throughput:rejected  SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  thrpt    5           ≈ 0                 ops/s
+InMemoryLimiterBenchmark.throughput                     TOKEN_BUCKET     HOT     1000       1048576        1000  thrpt    5   7277392.128 ±  1241281.929  ops/s
+InMemoryLimiterBenchmark.throughput:allowed             TOKEN_BUCKET     HOT     1000       1048576        1000  thrpt    5      1002.986 ±        2.060  ops/s
+InMemoryLimiterBenchmark.throughput:rejected            TOKEN_BUCKET     HOT     1000       1048576        1000  thrpt    5   7279696.747 ±  1246065.270  ops/s
+InMemoryLimiterBenchmark.throughput                     TOKEN_BUCKET  SPREAD     1000       1048576        1000  thrpt    5  35051490.250 ±  3703970.319  ops/s
+InMemoryLimiterBenchmark.throughput:allowed             TOKEN_BUCKET  SPREAD     1000       1048576        1000  thrpt    5  35066634.113 ±  3723040.502  ops/s
+InMemoryLimiterBenchmark.throughput:rejected            TOKEN_BUCKET  SPREAD     1000       1048576        1000  thrpt    5           ≈ 0                 ops/s
+
+Benchmark result is saved to D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\results\jmh\20261126-231420\inmemory-throughput-t12.json

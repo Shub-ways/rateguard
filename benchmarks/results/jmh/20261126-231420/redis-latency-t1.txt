@@ -1,0 +1,494 @@
+﻿java.exe : WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+At D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\jmh\run-jmh.ps1:50 char:5
++     & java -jar $jar $pattern -t $threads @iter -rf json -rff $json @ ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A term...has been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils 
+(file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency
+# Parameters: (algorithm = FIXED_WINDOW, keys = HOT, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 0.00% complete, ETA 00:01:04
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 2535.331 ±(99.9%) 183.959 us/op
+# Warmup Iteration   2: 2954.725 ±(99.9%) 128.365 us/op
+# Warmup Iteration   3: 2823.158 ±(99.9%) 158.551 us/op
+Iteration   1: 3033.831 ±(99.9%) 149.753 us/op
+                 p0.00:   823.296 us/op
+                 p0.50:   2854.912 us/op
+                 p0.90:   4585.882 us/op
+                 p0.95:   5104.435 us/op
+                 p0.99:   6090.097 us/op
+                 p0.999:  8216.576 us/op
+                 p0.9999: 8216.576 us/op
+                 p1.00:   8216.576 us/op
+
+Iteration   2: 2446.668 ±(99.9%) 133.732 us/op
+                 p0.00:   887.808 us/op
+                 p0.50:   2166.784 us/op
+                 p0.90:   3905.126 us/op
+                 p0.95:   4696.064 us/op
+                 p0.99:   6681.969 us/op
+                 p0.999:  8962.048 us/op
+                 p0.9999: 8962.048 us/op
+                 p1.00:   8962.048 us/op
+
+Iteration   3: 2236.415 ±(99.9%) 104.538 us/op
+                 p0.00:   836.608 us/op
+                 p0.50:   1900.544 us/op
+                 p0.90:   3618.406 us/op
+                 p0.95:   4130.406 us/op
+                 p0.99:   5268.275 us/op
+                 p0.999:  6488.064 us/op
+                 p0.9999: 6488.064 us/op
+                 p1.00:   6488.064 us/op
+
+Iteration   4: 2392.638 ±(99.9%) 122.834 us/op
+                 p0.00:   764.928 us/op
+                 p0.50:   2066.432 us/op
+                 p0.90:   3888.742 us/op
+                 p0.95:   4472.832 us/op
+                 p0.99:   5525.996 us/op
+                 p0.999:  7847.936 us/op
+                 p0.9999: 7847.936 us/op
+                 p1.00:   7847.936 us/op
+
+Iteration   5: 2075.863 ±(99.9%) 96.105 us/op
+                 p0.00:   687.104 us/op
+                 p0.50:   1812.480 us/op
+                 p0.90:   3367.731 us/op
+                 p0.95:   3928.064 us/op
+                 p0.99:   4826.235 us/op
+                 p0.999:  5341.184 us/op
+                 p0.9999: 5341.184 us/op
+                 p1.00:   5341.184 us/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency":
+  N = 4168
+  mean =   2397.654 ±(99.9%) 55.437 us/op
+
+  Histogram, us/op:
+    [   0.000,  500.000) = 0 
+    [ 500.000, 1000.000) = 94 
+    [1000.000, 1500.000) = 721 
+    [1500.000, 2000.000) = 1095 
+    [2000.000, 2500.000) = 703 
+    [2500.000, 3000.000) = 531 
+    [3000.000, 3500.000) = 376 
+    [3500.000, 4000.000) = 263 
+    [4000.000, 4500.000) = 179 
+    [4500.000, 5000.000) = 96 
+    [5000.000, 5500.000) = 56 
+    [5500.000, 6000.000) = 24 
+    [6000.000, 6500.000) = 12 
+    [6500.000, 7000.000) = 7 
+    [7000.000, 7500.000) = 1 
+    [7500.000, 8000.000) = 5 
+    [8000.000, 8500.000) = 3 
+
+  Percentiles, us/op:
+      p(0.0000) =    687.104 us/op
+     p(50.0000) =   2097.152 us/op
+     p(90.0000) =   3928.064 us/op
+     p(95.0000) =   4481.024 us/op
+     p(99.0000) =   5630.444 us/op
+     p(99.9000) =   8181.965 us/op
+     p(99.9900) =   8962.048 us/op
+     p(99.9990) =   8962.048 us/op
+     p(99.9999) =   8962.048 us/op
+    p(100.0000) =   8962.048 us/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency
+# Parameters: (algorithm = FIXED_WINDOW, keys = SPREAD, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 25.00% complete, ETA 00:00:57
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 2580.911 ±(99.9%) 173.600 us/op
+# Warmup Iteration   2: 3077.056 ±(99.9%) 174.781 us/op
+# Warmup Iteration   3: 2736.865 ±(99.9%) 147.601 us/op
+Iteration   1: 3171.915 ±(99.9%) 197.172 us/op
+                 p0.00:   1001.472 us/op
+                 p0.50:   2744.320 us/op
+                 p0.90:   5265.818 us/op
+                 p0.95:   5683.610 us/op
+                 p0.99:   6979.584 us/op
+                 p0.999:  9699.328 us/op
+                 p0.9999: 9699.328 us/op
+                 p1.00:   9699.328 us/op
+
+Iteration   2: 3108.808 ±(99.9%) 174.091 us/op
+                 p0.00:   845.824 us/op
+                 p0.50:   2961.408 us/op
+                 p0.90:   4869.325 us/op
+                 p0.95:   5251.072 us/op
+                 p0.99:   6364.529 us/op
+                 p0.999:  8060.928 us/op
+                 p0.9999: 8060.928 us/op
+                 p1.00:   8060.928 us/op
+
+Iteration   3: 2236.346 ±(99.9%) 116.403 us/op
+                 p0.00:   754.688 us/op
+                 p0.50:   1927.168 us/op
+                 p0.90:   3914.138 us/op
+                 p0.95:   4551.475 us/op
+                 p0.99:   5308.088 us/op
+                 p0.999:  7553.024 us/op
+                 p0.9999: 7553.024 us/op
+                 p1.00:   7553.024 us/op
+
+Iteration   4: 2045.457 ±(99.9%) 87.123 us/op
+                 p0.00:   948.224 us/op
+                 p0.50:   1805.312 us/op
+                 p0.90:   3030.630 us/op
+                 p0.95:   3810.918 us/op
+                 p0.99:   5134.418 us/op
+                 p0.999:  7249.920 us/op
+                 p0.9999: 7249.920 us/op
+                 p1.00:   7249.920 us/op
+
+Iteration   5: 2273.900 ±(99.9%) 129.458 us/op
+                 p0.00:   825.344 us/op
+                 p0.50:   1873.920 us/op
+                 p0.90:   4253.286 us/op
+                 p0.95:   4939.776 us/op
+                 p0.99:   5731.123 us/op
+                 p0.999:  8716.288 us/op
+                 p0.9999: 8716.288 us/op
+                 p1.00:   8716.288 us/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency":
+  N = 4032
+  mean =   2484.156 ±(99.9%) 64.599 us/op
+
+  Histogram, us/op:
+    [    0.000,  1000.000) = 40 
+    [ 1000.000,  2000.000) = 1902 
+    [ 2000.000,  3000.000) = 1028 
+    [ 3000.000,  4000.000) = 453 
+    [ 4000.000,  5000.000) = 396 
+    [ 5000.000,  6000.000) = 169 
+    [ 6000.000,  7000.000) = 34 
+    [ 7000.000,  8000.000) = 5 
+    [ 8000.000,  9000.000) = 4 
+
+  Percentiles, us/op:
+      p(0.0000) =    754.688 us/op
+     p(50.0000) =   2041.856 us/op
+     p(90.0000) =   4497.408 us/op
+     p(95.0000) =   5032.755 us/op
+     p(99.0000) =   6021.120 us/op
+     p(99.9000) =   8100.536 us/op
+     p(99.9900) =   9699.328 us/op
+     p(99.9990) =   9699.328 us/op
+     p(99.9999) =   9699.328 us/op
+    p(100.0000) =   9699.328 us/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency
+# Parameters: (algorithm = TOKEN_BUCKET, keys = HOT, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 50.00% complete, ETA 00:00:38
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 2051.919 ±(99.9%) 133.830 us/op
+# Warmup Iteration   2: 2813.834 ±(99.9%) 146.584 us/op
+# Warmup Iteration   3: 2936.462 ±(99.9%) 171.112 us/op
+Iteration   1: 2508.453 ±(99.9%) 129.417 us/op
+                 p0.00:   883.712 us/op
+                 p0.50:   2215.936 us/op
+                 p0.90:   4059.955 us/op
+                 p0.95:   4630.118 us/op
+                 p0.99:   6120.571 us/op
+                 p0.999:  9437.184 us/op
+                 p0.9999: 9437.184 us/op
+                 p1.00:   9437.184 us/op
+
+Iteration   2: 2505.077 ±(99.9%) 130.551 us/op
+                 p0.00:   819.200 us/op
+                 p0.50:   2160.640 us/op
+                 p0.90:   4259.840 us/op
+                 p0.95:   4760.781 us/op
+                 p0.99:   5440.225 us/op
+                 p0.999:  6053.888 us/op
+                 p0.9999: 6053.888 us/op
+                 p1.00:   6053.888 us/op
+
+Iteration   3: 2017.551 ±(99.9%) 82.156 us/op
+                 p0.00:   728.064 us/op
+                 p0.50:   1835.008 us/op
+                 p0.90:   2958.950 us/op
+                 p0.95:   3411.149 us/op
+                 p0.99:   5016.125 us/op
+                 p0.999:  6430.720 us/op
+                 p0.9999: 6430.720 us/op
+                 p1.00:   6430.720 us/op
+
+Iteration   4: 3066.564 ±(99.9%) 169.648 us/op
+                 p0.00:   1054.720 us/op
+                 p0.50:   2822.144 us/op
+                 p0.90:   4825.088 us/op
+                 p0.95:   5195.366 us/op
+                 p0.99:   6203.965 us/op
+                 p0.999:  7684.096 us/op
+                 p0.9999: 7684.096 us/op
+                 p1.00:   7684.096 us/op
+
+Iteration   5: 2623.227 ±(99.9%) 153.931 us/op
+                 p0.00:   917.504 us/op
+                 p0.50:   2191.360 us/op
+                 p0.90:   4394.189 us/op
+                 p0.95:   4842.291 us/op
+                 p0.99:   6393.528 us/op
+                 p0.999:  13664.256 us/op
+                 p0.9999: 13664.256 us/op
+                 p1.00:   13664.256 us/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency":
+  N = 4004
+  mean =   2498.462 ±(99.9%) 60.508 us/op
+
+  Histogram, us/op:
+    [    0.000,  1250.000) = 252 
+    [ 1250.000,  2500.000) = 2208 
+    [ 2500.000,  3750.000) = 895 
+    [ 3750.000,  5000.000) = 515 
+    [ 5000.000,  6250.000) = 115 
+    [ 6250.000,  7500.000) = 14 
+    [ 7500.000,  8750.000) = 2 
+    [ 8750.000, 10000.000) = 1 
+    [10000.000, 11250.000) = 1 
+    [11250.000, 12500.000) = 0 
+    [12500.000, 13750.000) = 1 
+    [13750.000, 15000.000) = 0 
+    [15000.000, 16250.000) = 0 
+    [16250.000, 17500.000) = 0 
+    [17500.000, 18750.000) = 0 
+
+  Percentiles, us/op:
+      p(0.0000) =    728.064 us/op
+     p(50.0000) =   2129.920 us/op
+     p(90.0000) =   4259.840 us/op
+     p(95.0000) =   4775.936 us/op
+     p(99.0000) =   5726.208 us/op
+     p(99.9000) =   8344.330 us/op
+     p(99.9900) =  13664.256 us/op
+     p(99.9990) =  13664.256 us/op
+     p(99.9999) =  13664.256 us/op
+    p(100.0000) =  13664.256 us/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms1g -Xmx1g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency
+# Parameters: (algorithm = TOKEN_BUCKET, keys = SPREAD, limit = 1000, redisHost = localhost, redisPort = 6380, spreadKeys = 16384, windowMs = 1000)
+
+# Run progress: 75.00% complete, ETA 00:00:19
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 2842.077 ±(99.9%) 215.819 us/op
+# Warmup Iteration   2: 2703.847 ±(99.9%) 138.142 us/op
+# Warmup Iteration   3: 4003.615 ±(99.9%) 268.532 us/op
+Iteration   1: 3018.639 ±(99.9%) 162.909 us/op
+                 p0.00:   968.704 us/op
+                 p0.50:   2736.128 us/op
+                 p0.90:   4904.550 us/op
+                 p0.95:   5256.806 us/op
+                 p0.99:   5802.639 us/op
+                 p0.999:  6889.472 us/op
+                 p0.9999: 6889.472 us/op
+                 p1.00:   6889.472 us/op
+
+Iteration   2: 2548.436 ±(99.9%) 124.278 us/op
+                 p0.00:   964.608 us/op
+                 p0.50:   2304.000 us/op
+                 p0.90:   4005.888 us/op
+                 p0.95:   4608.410 us/op
+                 p0.99:   5539.594 us/op
+                 p0.999:  7921.664 us/op
+                 p0.9999: 7921.664 us/op
+                 p1.00:   7921.664 us/op
+
+Iteration   3: 1923.582 ±(99.9%) 77.119 us/op
+                 p0.00:   679.936 us/op
+                 p0.50:   1730.560 us/op
+                 p0.90:   2828.698 us/op
+                 p0.95:   3479.962 us/op
+                 p0.99:   4679.598 us/op
+                 p0.999:  5527.437 us/op
+                 p0.9999: 5529.600 us/op
+                 p1.00:   5529.600 us/op
+
+Iteration   4: 2081.619 ±(99.9%) 114.394 us/op
+                 p0.00:   643.072 us/op
+                 p0.50:   1687.552 us/op
+                 p0.90:   3776.512 us/op
+                 p0.95:   4304.896 us/op
+                 p0.99:   5439.488 us/op
+                 p0.999:  6553.600 us/op
+                 p0.9999: 6553.600 us/op
+                 p1.00:   6553.600 us/op
+
+Iteration   5: 2212.003 ±(99.9%) 114.149 us/op
+                 p0.00:   776.192 us/op
+                 p0.50:   1918.976 us/op
+                 p0.90:   3685.581 us/op
+                 p0.95:   4380.262 us/op
+                 p0.99:   5290.885 us/op
+                 p0.999:  8617.984 us/op
+                 p0.9999: 8617.984 us/op
+                 p1.00:   8617.984 us/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.RedisLimiterBenchmark.latency":
+  N = 4358
+  mean =   2297.498 ±(99.9%) 54.545 us/op
+
+  Histogram, us/op:
+    [   0.000,  500.000) = 0 
+    [ 500.000, 1000.000) = 104 
+    [1000.000, 1500.000) = 986 
+    [1500.000, 2000.000) = 1184 
+    [2000.000, 2500.000) = 676 
+    [2500.000, 3000.000) = 433 
+    [3000.000, 3500.000) = 310 
+    [3500.000, 4000.000) = 246 
+    [4000.000, 4500.000) = 169 
+    [4500.000, 5000.000) = 138 
+    [5000.000, 5500.000) = 67 
+    [5500.000, 6000.000) = 30 
+    [6000.000, 6500.000) = 8 
+    [6500.000, 7000.000) = 4 
+    [7000.000, 7500.000) = 0 
+    [7500.000, 8000.000) = 2 
+    [8000.000, 8500.000) = 0 
+
+  Percentiles, us/op:
+      p(0.0000) =    643.072 us/op
+     p(50.0000) =   1951.744 us/op
+     p(90.0000) =   3981.312 us/op
+     p(95.0000) =   4595.712 us/op
+     p(99.0000) =   5513.216 us/op
+     p(99.9000) =   6824.772 us/op
+     p(99.9900) =   8617.984 us/op
+     p(99.9990) =   8617.984 us/op
+     p(99.9999) =   8617.984 us/op
+    p(100.0000) =   8617.984 us/op
+
+
+# Run complete. Total time: 00:01:16
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                               (algorithm)  (keys)  (limit)  (redisHost)  (redisPort)  (spreadKeys)  (windowMs)    Mode   Cnt      Score    Error  Units
+RedisLimiterBenchmark.latency          FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample  4168   2397.654 ± 55.437  us/op
+RedisLimiterBenchmark.latency:p0.00    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample          687.104           us/op
+RedisLimiterBenchmark.latency:p0.50    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         2097.152           us/op
+RedisLimiterBenchmark.latency:p0.90    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         3928.064           us/op
+RedisLimiterBenchmark.latency:p0.95    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         4481.024           us/op
+RedisLimiterBenchmark.latency:p0.99    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         5630.444           us/op
+RedisLimiterBenchmark.latency:p0.999   FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         8181.965           us/op
+RedisLimiterBenchmark.latency:p0.9999  FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         8962.048           us/op
+RedisLimiterBenchmark.latency:p1.00    FIXED_WINDOW     HOT     1000    localhost         6380         16384        1000  sample         8962.048           us/op
+RedisLimiterBenchmark.latency          FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample  4032   2484.156 ± 64.599  us/op
+RedisLimiterBenchmark.latency:p0.00    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample          754.688           us/op
+RedisLimiterBenchmark.latency:p0.50    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         2041.856           us/op
+RedisLimiterBenchmark.latency:p0.90    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         4497.408           us/op
+RedisLimiterBenchmark.latency:p0.95    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         5032.755           us/op
+RedisLimiterBenchmark.latency:p0.99    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         6021.120           us/op
+RedisLimiterBenchmark.latency:p0.999   FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         8100.536           us/op
+RedisLimiterBenchmark.latency:p0.9999  FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         9699.328           us/op
+RedisLimiterBenchmark.latency:p1.00    FIXED_WINDOW  SPREAD     1000    localhost         6380         16384        1000  sample         9699.328           us/op
+RedisLimiterBenchmark.latency          TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample  4004   2498.462 ± 60.508  us/op
+RedisLimiterBenchmark.latency:p0.00    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample          728.064           us/op
+RedisLimiterBenchmark.latency:p0.50    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample         2129.920           us/op
+RedisLimiterBenchmark.latency:p0.90    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample         4259.840           us/op
+RedisLimiterBenchmark.latency:p0.95    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample         4775.936           us/op
+RedisLimiterBenchmark.latency:p0.99    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample         5726.208           us/op
+RedisLimiterBenchmark.latency:p0.999   TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample         8344.330           us/op
+RedisLimiterBenchmark.latency:p0.9999  TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample        13664.256           us/op
+RedisLimiterBenchmark.latency:p1.00    TOKEN_BUCKET     HOT     1000    localhost         6380         16384        1000  sample        13664.256           us/op
+RedisLimiterBenchmark.latency          TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample  4358   2297.498 ± 54.545  us/op
+RedisLimiterBenchmark.latency:p0.00    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample          643.072           us/op
+RedisLimiterBenchmark.latency:p0.50    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         1951.744           us/op
+RedisLimiterBenchmark.latency:p0.90    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         3981.312           us/op
+RedisLimiterBenchmark.latency:p0.95    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         4595.712           us/op
+RedisLimiterBenchmark.latency:p0.99    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         5513.216           us/op
+RedisLimiterBenchmark.latency:p0.999   TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         6824.772           us/op
+RedisLimiterBenchmark.latency:p0.9999  TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         8617.984           us/op
+RedisLimiterBenchmark.latency:p1.00    TOKEN_BUCKET  SPREAD     1000    localhost         6380         16384        1000  sample         8617.984           us/op
+
+Benchmark result is saved to D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\results\jmh\20261126-231420\redis-latency-t1.json

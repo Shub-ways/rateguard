@@ -1,0 +1,219 @@
+{
+ "root_group": {
+  "name": "",
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": [],
+  "checks": []
+ },
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "isStdOutTTY": false,
+  "isStdErrTTY": false,
+  "testRunDurationMs": 30002.659219
+ },
+ "metrics": {
+  "data_received": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 31990364,
+    "rate": 1066250.9535068555
+   }
+  },
+  "http_req_waiting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(99)": 37.072733199999995,
+    "max": 65.605266,
+    "avg": 1.9191694533181909,
+    "min": 0.076271,
+    "med": 0.901002,
+    "p(90)": 2.3812468000000004,
+    "p(95)": 3.3007887999999954
+   }
+  },
+  "status_200": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 138373,
+    "rate": 4612.024520558882
+   }
+  },
+  "http_req_sending": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 0.02155046399225286,
+    "min": 0.001814,
+    "med": 0.012302,
+    "p(90)": 0.031235,
+    "p(95)": 0.042001399999999994,
+    "p(99)": 0.15717879999999992,
+    "max": 6.0147
+   }
+  },
+  "http_req_connecting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 0,
+    "p(99)": 0.10880819999999557,
+    "max": 7.78685,
+    "avg": 0.005006510337999452,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0
+   }
+  },
+  "vus": {
+   "values": {
+    "value": 10,
+    "min": 10,
+    "max": 10
+   },
+   "type": "gauge",
+   "contains": "default"
+  },
+  "http_req_tls_handshaking": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0,
+    "avg": 0
+   }
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 3.5164787999999985,
+    "p(99)": 37.16695527999999,
+    "max": 65.796647,
+    "avg": 2.005163473322094,
+    "min": 0.100986,
+    "med": 0.971657,
+    "p(90)": 2.5349912
+   }
+  },
+  "http_req_blocked": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "min": 0.000571,
+    "med": 0.004186,
+    "p(90)": 0.009807800000000004,
+    "p(95)": 0.012407,
+    "p(99)": 0.24396327999999984,
+    "max": 7.927559,
+    "avg": 0.012571411077305639
+   }
+  },
+  "http_req_failed": {
+   "type": "rate",
+   "contains": "default",
+   "values": {
+    "rate": 0,
+    "passes": 0,
+    "fails": 138373
+   }
+  },
+  "vus_max": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "min": 10,
+    "max": 10,
+    "value": 10
+   }
+  },
+  "http_req_receiving": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "max": 9.072268,
+    "avg": 0.06444355601165067,
+    "min": 0.005121,
+    "med": 0.038689,
+    "p(90)": 0.10585800000000001,
+    "p(95)": 0.15918559999999987,
+    "p(99)": 0.46923795999999973
+   }
+  },
+  "iteration_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 3.855068399999992,
+    "p(99)": 37.30888255999999,
+    "max": 67.494223,
+    "avg": 2.147786617432583,
+    "min": 0.136941,
+    "med": 1.08879,
+    "p(90)": 2.7870762
+   }
+  },
+  "iterations": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "rate": 4612.024520558882,
+    "count": 138373
+   }
+  },
+  "http_reqs": {
+   "contains": "default",
+   "values": {
+    "count": 138373,
+    "rate": 4612.024520558882
+   },
+   "type": "counter"
+  },
+  "http_req_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 2.005163473322094,
+    "min": 0.100986,
+    "med": 0.971657,
+    "p(90)": 2.5349912,
+    "p(95)": 3.5164787999999985,
+    "p(99)": 37.16695527999999,
+    "max": 65.796647
+   }
+  },
+  "data_sent": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 17850117,
+    "rate": 594951.1631520957
+   }
+  }
+ },
+ "rateguard": {
+  "target": "http://app:8080",
+  "vus": 10,
+  "duration": "30s",
+  "label": "B vus=10 trial=1"
+ }
+}

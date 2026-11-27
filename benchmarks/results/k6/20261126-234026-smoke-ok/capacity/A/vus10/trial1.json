@@ -1,0 +1,219 @@
+{
+ "options": {
+  "summaryTrendStats": [
+   "avg",
+   "min",
+   "med",
+   "p(90)",
+   "p(95)",
+   "p(99)",
+   "max"
+  ],
+  "summaryTimeUnit": "",
+  "noColor": false
+ },
+ "state": {
+  "isStdOutTTY": false,
+  "isStdErrTTY": false,
+  "testRunDurationMs": 10009.309873
+ },
+ "metrics": {
+  "iteration_duration": {
+   "contains": "time",
+   "values": {
+    "p(90)": 75.5106922,
+    "p(95)": 79.09649805,
+    "p(99)": 85.04856570999996,
+    "max": 147.949261,
+    "avg": 17.741942423240868,
+    "min": 0.747435,
+    "med": 5.1833055
+   },
+   "type": "trend"
+  },
+  "http_reqs": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "count": 5628,
+    "rate": 562.2765276936292
+   }
+  },
+  "http_req_receiving": {
+   "values": {
+    "avg": 0.1339963431058986,
+    "min": 0.010136,
+    "med": 0.082834,
+    "p(90)": 0.22407980000000005,
+    "p(95)": 0.32051584999999994,
+    "p(99)": 1.105861039999999,
+    "max": 10.147438
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "status_200": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "rate": 562.2765276936292,
+    "count": 5628
+   }
+  },
+  "http_req_failed": {
+   "type": "rate",
+   "contains": "default",
+   "values": {
+    "rate": 0,
+    "passes": 0,
+    "fails": 5628
+   }
+  },
+  "http_req_duration": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(99)": 84.65989938999999,
+    "max": 147.832206,
+    "avg": 17.453331180703604,
+    "min": 0.632095,
+    "med": 4.894193,
+    "p(90)": 75.23660319999999,
+    "p(95)": 78.71675724999999
+   }
+  },
+  "http_req_duration{expected_response:true}": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(95)": 78.71675724999999,
+    "p(99)": 84.65989938999999,
+    "max": 147.832206,
+    "avg": 17.453331180703604,
+    "min": 0.632095,
+    "med": 4.894193,
+    "p(90)": 75.23660319999999
+   }
+  },
+  "data_received": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 783242,
+    "rate": 78251.34898788441
+   }
+  },
+  "http_req_connecting": {
+   "values": {
+    "p(99)": 0.19421564999999968,
+    "max": 4.456412,
+    "avg": 0.009485132551528072,
+    "min": 0,
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0
+   },
+   "type": "trend",
+   "contains": "time"
+  },
+  "vus": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "value": 10,
+    "min": 10,
+    "max": 10
+   }
+  },
+  "http_req_blocked": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "med": 0.008674,
+    "p(90)": 0.016177300000000002,
+    "p(95)": 0.019627199999999997,
+    "p(99)": 0.5298932199999923,
+    "max": 4.623603,
+    "avg": 0.026027316986496137,
+    "min": 0.001112
+   }
+  },
+  "iterations": {
+   "type": "counter",
+   "contains": "default",
+   "values": {
+    "rate": 562.2765276936292,
+    "count": 5628
+   }
+  },
+  "http_req_tls_handshaking": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "med": 0,
+    "p(90)": 0,
+    "p(95)": 0,
+    "p(99)": 0,
+    "max": 0,
+    "avg": 0,
+    "min": 0
+   }
+  },
+  "http_req_sending": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "avg": 0.044357298152096665,
+    "min": 0.003197,
+    "med": 0.026993,
+    "p(90)": 0.054925200000000014,
+    "p(95)": 0.10479279999999991,
+    "p(99)": 0.34487185999999714,
+    "max": 3.957229
+   }
+  },
+  "vus_max": {
+   "type": "gauge",
+   "contains": "default",
+   "values": {
+    "value": 10,
+    "min": 10,
+    "max": 10
+   }
+  },
+  "http_req_waiting": {
+   "type": "trend",
+   "contains": "time",
+   "values": {
+    "p(90)": 75.061957,
+    "p(95)": 78.47370310000001,
+    "p(99)": 84.52092092,
+    "max": 147.770406,
+    "avg": 17.274977539445633,
+    "min": 0.578813,
+    "med": 4.711476
+   }
+  },
+  "data_sent": {
+   "type": "counter",
+   "contains": "data",
+   "values": {
+    "count": 726012,
+    "rate": 72533.67207247816
+   }
+  }
+ },
+ "rateguard": {
+  "duration": "10s",
+  "label": "A vus=10 trial=1",
+  "target": "http://app:8080",
+  "vus": 10
+ },
+ "root_group": {
+  "checks": [],
+  "name": "",
+  "path": "",
+  "id": "d41d8cd98f00b204e9800998ecf8427e",
+  "groups": []
+ }
+}

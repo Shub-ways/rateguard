@@ -1,0 +1,950 @@
+﻿java.exe : WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+At D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\jmh\run-jmh.ps1:50 char:5
++     & java -jar $jar $pattern -t $threads @iter -rf json -rff $json @ ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: A term...has been called:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils 
+(file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = FIXED_WINDOW, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 0.00% complete, ETA 00:02:08
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 4838.791 ±(99.9%) 514.311 ns/op
+# Warmup Iteration   2: 6360.675 ±(99.9%) 868.326 ns/op
+# Warmup Iteration   3: 5055.700 ±(99.9%) 192.089 ns/op
+Iteration   1: 4712.712 ±(99.9%) 186.822 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   500.000 ns/op
+                 p0.90:   1500.000 ns/op
+                 p0.95:   2500.000 ns/op
+                 p0.99:   196608.000 ns/op
+                 p0.999:  386281.472 ns/op
+                 p0.9999: 853038.694 ns/op
+                 p1.00:   9797632.000 ns/op
+
+Iteration   2: 4247.144 ±(99.9%) 143.555 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   500.000 ns/op
+                 p0.90:   1500.000 ns/op
+                 p0.95:   2400.000 ns/op
+                 p0.99:   191488.000 ns/op
+                 p0.999:  330240.000 ns/op
+                 p0.9999: 776757.658 ns/op
+                 p1.00:   3305472.000 ns/op
+
+Iteration   3: 4192.569 ±(99.9%) 202.076 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   300.000 ns/op
+                 p0.90:   1100.000 ns/op
+                 p0.95:   2100.000 ns/op
+                 p0.99:   182528.000 ns/op
+                 p0.999:  370688.000 ns/op
+                 p0.9999: 1338540.032 ns/op
+                 p1.00:   9060352.000 ns/op
+
+Iteration   4: 4753.937 ±(99.9%) 153.790 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   500.000 ns/op
+                 p0.90:   1600.000 ns/op
+                 p0.95:   2700.000 ns/op
+                 p0.99:   209152.000 ns/op
+                 p0.999:  381843.968 ns/op
+                 p0.9999: 881211.187 ns/op
+                 p1.00:   2834432.000 ns/op
+
+Iteration   5: 7378.187 ±(99.9%) 343.371 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   900.000 ns/op
+                 p0.90:   2500.000 ns/op
+                 p0.95:   4000.000 ns/op
+                 p0.99:   282112.000 ns/op
+                 p0.999:  624640.000 ns/op
+                 p0.9999: 2137706.906 ns/op
+                 p1.00:   23560192.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 2835703
+  mean =   5100.737 ±(99.9%) 101.461 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 2835629 
+    [ 2500000.000,  5000000.000) = 53 
+    [ 5000000.000,  7500000.000) = 5 
+    [ 7500000.000, 10000000.000) = 13 
+    [10000000.000, 12500000.000) = 0 
+    [12500000.000, 15000000.000) = 0 
+    [15000000.000, 17500000.000) = 0 
+    [17500000.000, 20000000.000) = 0 
+    [20000000.000, 22500000.000) = 0 
+    [22500000.000, 25000000.000) = 3 
+    [25000000.000, 27500000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =        ≈ 0 ns/op
+     p(50.0000) =    500.000 ns/op
+     p(90.0000) =   1700.000 ns/op
+     p(95.0000) =   2800.000 ns/op
+     p(99.0000) = 206336.000 ns/op
+     p(99.9000) = 468480.000 ns/op
+     p(99.9900) = 1204224.000 ns/op
+     p(99.9990) = 4333568.000 ns/op
+     p(99.9999) = 23149892.862 ns/op
+    p(100.0000) = 23560192.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = FIXED_WINDOW, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 12.50% complete, ETA 00:01:57
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 3368.244 ±(99.9%) 1042.916 ns/op
+# Warmup Iteration   2: 1219.265 ±(99.9%) 361.788 ns/op
+# Warmup Iteration   3: 1419.948 ±(99.9%) 187.437 ns/op
+Iteration   1: 1340.201 ±(99.9%) 193.137 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   400.000 ns/op
+                 p0.95:   600.000 ns/op
+                 p0.99:   1000.000 ns/op
+                 p0.999:  29521.792 ns/op
+                 p0.9999: 1948978.381 ns/op
+                 p1.00:   7102464.000 ns/op
+
+Iteration   2: 2024.723 ±(99.9%) 379.371 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   500.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1100.000 ns/op
+                 p0.999:  65501.248 ns/op
+                 p0.9999: 4076161.843 ns/op
+                 p1.00:   16728064.000 ns/op
+
+Iteration   3: 1678.156 ±(99.9%) 239.143 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   500.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1100.000 ns/op
+                 p0.999:  61390.592 ns/op
+                 p0.9999: 2095104.000 ns/op
+                 p1.00:   8929280.000 ns/op
+
+Iteration   4: 1864.344 ±(99.9%) 304.243 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   400.000 ns/op
+                 p0.95:   600.000 ns/op
+                 p0.99:   1000.000 ns/op
+                 p0.999:  40178.368 ns/op
+                 p0.9999: 4058258.637 ns/op
+                 p1.00:   8036352.000 ns/op
+
+Iteration   5: 1398.012 ±(99.9%) 212.235 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   500.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1100.000 ns/op
+                 p0.999:  41792.000 ns/op
+                 p0.9999: 1860100.506 ns/op
+                 p1.00:   8749056.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 2664785
+  mean =   1662.983 ±(99.9%) 123.261 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  1250000.000) = 2663607 
+    [ 1250000.000,  2500000.000) = 880 
+    [ 2500000.000,  3750000.000) = 140 
+    [ 3750000.000,  5000000.000) = 97 
+    [ 5000000.000,  6250000.000) = 26 
+    [ 6250000.000,  7500000.000) = 18 
+    [ 7500000.000,  8750000.000) = 7 
+    [ 8750000.000, 10000000.000) = 4 
+    [10000000.000, 11250000.000) = 1 
+    [11250000.000, 12500000.000) = 3 
+    [12500000.000, 13750000.000) = 0 
+    [13750000.000, 15000000.000) = 1 
+    [15000000.000, 16250000.000) = 0 
+    [16250000.000, 17500000.000) = 1 
+    [17500000.000, 18750000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =    100.000 ns/op
+     p(50.0000) =    200.000 ns/op
+     p(90.0000) =    500.000 ns/op
+     p(95.0000) =    600.000 ns/op
+     p(99.0000) =   1100.000 ns/op
+     p(99.9000) =  43675.392 ns/op
+     p(99.9900) = 2738438.963 ns/op
+     p(99.9990) = 6882204.385 ns/op
+     p(99.9999) = 12199902.512 ns/op
+    p(100.0000) = 16728064.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = SLIDING_WINDOW_LOG, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 25.00% complete, ETA 00:01:41
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 4578.994 ±(99.9%) 378.422 ns/op
+# Warmup Iteration   2: 8095.411 ±(99.9%) 287.154 ns/op
+# Warmup Iteration   3: 9428.507 ±(99.9%) 329.784 ns/op
+Iteration   1: 10294.265 ±(99.9%) 543.781 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   1000.000 ns/op
+                 p0.90:   1600.000 ns/op
+                 p0.95:   2600.000 ns/op
+                 p0.99:   368640.000 ns/op
+                 p0.999:  1268588.544 ns/op
+                 p0.9999: 6135808.000 ns/op
+                 p1.00:   12075008.000 ns/op
+
+Iteration   2: 12226.235 ±(99.9%) 781.824 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   1100.000 ns/op
+                 p0.90:   1500.000 ns/op
+                 p0.95:   2300.000 ns/op
+                 p0.99:   325120.000 ns/op
+                 p0.999:  2164801.536 ns/op
+                 p0.9999: 7603232.768 ns/op
+                 p1.00:   35913728.000 ns/op
+
+Iteration   3: 11601.876 ±(99.9%) 733.530 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   1100.000 ns/op
+                 p0.90:   1600.000 ns/op
+                 p0.95:   2300.000 ns/op
+                 p0.99:   328192.000 ns/op
+                 p0.999:  2002108.416 ns/op
+                 p0.9999: 8058621.133 ns/op
+                 p1.00:   17367040.000 ns/op
+
+Iteration   4: 10950.717 ±(99.9%) 587.198 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   1100.000 ns/op
+                 p0.90:   1800.000 ns/op
+                 p0.95:   2800.000 ns/op
+                 p0.99:   366592.000 ns/op
+                 p0.999:  1475225.600 ns/op
+                 p0.9999: 5914624.000 ns/op
+                 p1.00:   19365888.000 ns/op
+
+Iteration   5: 9949.653 ±(99.9%) 658.992 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   900.000 ns/op
+                 p0.90:   1700.000 ns/op
+                 p0.95:   2700.000 ns/op
+                 p0.99:   296448.000 ns/op
+                 p0.999:  1415192.576 ns/op
+                 p0.9999: 6848585.728 ns/op
+                 p1.00:   19202048.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 3090386
+  mean =  10984.745 ±(99.9%) 297.597 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 3088650 
+    [ 2500000.000,  5000000.000) = 1037 
+    [ 5000000.000,  7500000.000) = 433 
+    [ 7500000.000, 10000000.000) = 171 
+    [10000000.000, 12500000.000) = 53 
+    [12500000.000, 15000000.000) = 20 
+    [15000000.000, 17500000.000) = 7 
+    [17500000.000, 20000000.000) = 13 
+    [20000000.000, 22500000.000) = 0 
+    [22500000.000, 25000000.000) = 0 
+    [25000000.000, 27500000.000) = 0 
+    [27500000.000, 30000000.000) = 0 
+    [30000000.000, 32500000.000) = 1 
+    [32500000.000, 35000000.000) = 0 
+    [35000000.000, 37500000.000) = 1 
+
+  Percentiles, ns/op:
+      p(0.0000) =    100.000 ns/op
+     p(50.0000) =   1000.000 ns/op
+     p(90.0000) =   1700.000 ns/op
+     p(95.0000) =   2500.000 ns/op
+     p(99.0000) = 334848.000 ns/op
+     p(99.9000) = 1681408.000 ns/op
+     p(99.9900) = 7085762.970 ns/op
+     p(99.9990) = 13453779.927 ns/op
+     p(99.9999) = 19351078.994 ns/op
+    p(100.0000) = 35913728.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = SLIDING_WINDOW_LOG, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 37.50% complete, ETA 00:01:24
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 3213.089 ±(99.9%) 1281.139 ns/op
+# Warmup Iteration   2: 1387.375 ±(99.9%) 187.461 ns/op
+# Warmup Iteration   3: 1858.752 ±(99.9%) 186.720 ns/op
+Iteration   1: 2173.004 ±(99.9%) 219.491 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   500.000 ns/op
+                 p0.90:   1000.000 ns/op
+                 p0.95:   1200.000 ns/op
+                 p0.99:   2000.000 ns/op
+                 p0.999:  131617.792 ns/op
+                 p0.9999: 2682096.845 ns/op
+                 p1.00:   9977856.000 ns/op
+
+Iteration   2: 2600.293 ±(99.9%) 292.502 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   900.000 ns/op
+                 p0.95:   1100.000 ns/op
+                 p0.99:   1800.000 ns/op
+                 p0.999:  139776.000 ns/op
+                 p0.9999: 3477504.000 ns/op
+                 p1.00:   10878976.000 ns/op
+
+Iteration   3: 1814.144 ±(99.9%) 173.450 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   900.000 ns/op
+                 p0.95:   1100.000 ns/op
+                 p0.99:   1700.000 ns/op
+                 p0.999:  114547.456 ns/op
+                 p0.9999: 2362532.659 ns/op
+                 p1.00:   8716288.000 ns/op
+
+Iteration   4: 2001.733 ±(99.9%) 222.693 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   900.000 ns/op
+                 p0.95:   1100.000 ns/op
+                 p0.99:   1600.000 ns/op
+                 p0.999:  36864.000 ns/op
+                 p0.9999: 3609036.390 ns/op
+                 p1.00:   12107776.000 ns/op
+
+Iteration   5: 2211.977 ±(99.9%) 348.069 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   1100.000 ns/op
+                 p0.95:   1300.000 ns/op
+                 p0.99:   2200.000 ns/op
+                 p0.999:  287576.064 ns/op
+                 p0.9999: 2174841.651 ns/op
+                 p1.00:   30179328.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 3965273
+  mean =   2136.798 ±(99.9%) 109.132 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 3964641 
+    [ 2500000.000,  5000000.000) = 572 
+    [ 5000000.000,  7500000.000) = 39 
+    [ 7500000.000, 10000000.000) = 14 
+    [10000000.000, 12500000.000) = 4 
+    [12500000.000, 15000000.000) = 1 
+    [15000000.000, 17500000.000) = 0 
+    [17500000.000, 20000000.000) = 0 
+    [20000000.000, 22500000.000) = 0 
+    [22500000.000, 25000000.000) = 0 
+    [25000000.000, 27500000.000) = 0 
+    [27500000.000, 30000000.000) = 1 
+    [30000000.000, 32500000.000) = 1 
+    [32500000.000, 35000000.000) = 0 
+    [35000000.000, 37500000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =        ≈ 0 ns/op
+     p(50.0000) =    400.000 ns/op
+     p(90.0000) =    900.000 ns/op
+     p(95.0000) =   1100.000 ns/op
+     p(99.0000) =   1800.000 ns/op
+     p(99.9000) = 122460.928 ns/op
+     p(99.9900) = 2959247.770 ns/op
+     p(99.9990) = 5890048.000 ns/op
+     p(99.9999) = 12191980.716 ns/op
+    p(100.0000) = 30179328.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = SLIDING_WINDOW_COUNTER, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 50.00% complete, ETA 00:01:07
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 5519.069 ±(99.9%) 502.264 ns/op
+# Warmup Iteration   2: 5262.107 ±(99.9%) 196.648 ns/op
+# Warmup Iteration   3: 8523.216 ±(99.9%) 283.072 ns/op
+Iteration   1: 10148.794 ±(99.9%) 429.415 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   900.000 ns/op
+                 p0.90:   2600.000 ns/op
+                 p0.95:   4296.000 ns/op
+                 p0.99:   380928.000 ns/op
+                 p0.999:  1013305.344 ns/op
+                 p0.9999: 4045938.688 ns/op
+                 p1.00:   8863744.000 ns/op
+
+Iteration   2: 13104.051 ±(99.9%) 542.300 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   1100.000 ns/op
+                 p0.90:   3100.000 ns/op
+                 p0.95:   5200.000 ns/op
+                 p0.99:   460800.000 ns/op
+                 p0.999:  1431046.144 ns/op
+                 p0.9999: 2958030.029 ns/op
+                 p1.00:   18546688.000 ns/op
+
+Iteration   3: 9824.612 ±(99.9%) 304.989 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   800.000 ns/op
+                 p0.90:   2400.000 ns/op
+                 p0.95:   4400.000 ns/op
+                 p0.99:   375296.000 ns/op
+                 p0.999:  885760.000 ns/op
+                 p0.9999: 1684229.734 ns/op
+                 p1.00:   4235264.000 ns/op
+
+Iteration   4: 9108.521 ±(99.9%) 296.303 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   800.000 ns/op
+                 p0.90:   2400.000 ns/op
+                 p0.95:   4296.000 ns/op
+                 p0.99:   356352.000 ns/op
+                 p0.999:  829440.000 ns/op
+                 p0.9999: 1733944.115 ns/op
+                 p1.00:   4644864.000 ns/op
+
+Iteration   5: 9017.417 ±(99.9%) 367.391 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   800.000 ns/op
+                 p0.90:   2600.000 ns/op
+                 p0.95:   4496.000 ns/op
+                 p0.99:   331776.000 ns/op
+                 p0.999:  927744.000 ns/op
+                 p0.9999: 1667652.403 ns/op
+                 p1.00:   18415616.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 2901675
+  mean =  10232.739 ±(99.9%) 177.756 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  1250000.000) = 2899968 
+    [ 1250000.000,  2500000.000) = 1467 
+    [ 2500000.000,  3750000.000) = 126 
+    [ 3750000.000,  5000000.000) = 44 
+    [ 5000000.000,  6250000.000) = 25 
+    [ 6250000.000,  7500000.000) = 23 
+    [ 7500000.000,  8750000.000) = 7 
+    [ 8750000.000, 10000000.000) = 2 
+    [10000000.000, 11250000.000) = 1 
+    [11250000.000, 12500000.000) = 0 
+    [12500000.000, 13750000.000) = 1 
+    [13750000.000, 15000000.000) = 0 
+    [15000000.000, 16250000.000) = 0 
+    [16250000.000, 17500000.000) = 0 
+    [17500000.000, 18750000.000) = 11 
+
+  Percentiles, ns/op:
+      p(0.0000) =    100.000 ns/op
+     p(50.0000) =    900.000 ns/op
+     p(90.0000) =   2700.000 ns/op
+     p(95.0000) =   4496.000 ns/op
+     p(99.0000) = 375808.000 ns/op
+     p(99.9000) = 1036288.000 ns/op
+     p(99.9900) = 2267811.021 ns/op
+     p(99.9990) = 7077750.702 ns/op
+     p(99.9999) = 18546688.000 ns/op
+    p(100.0000) = 18546688.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = SLIDING_WINDOW_COUNTER, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 62.50% complete, ETA 00:00:50
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 3437.197 ±(99.9%) 1130.995 ns/op
+# Warmup Iteration   2: 2360.497 ±(99.9%) 702.273 ns/op
+# Warmup Iteration   3: 2817.419 ±(99.9%) 421.060 ns/op
+Iteration   1: 2138.212 ±(99.9%) 290.073 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   600.000 ns/op
+                 p0.95:   800.000 ns/op
+                 p0.99:   1300.000 ns/op
+                 p0.999:  145889.792 ns/op
+                 p0.9999: 3460204.134 ns/op
+                 p1.00:   8568832.000 ns/op
+
+Iteration   2: 3101.480 ±(99.9%) 539.173 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   500.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1300.000 ns/op
+                 p0.999:  236032.000 ns/op
+                 p0.9999: 5055853.363 ns/op
+                 p1.00:   22151168.000 ns/op
+
+Iteration   3: 1901.252 ±(99.9%) 279.999 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   600.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1200.000 ns/op
+                 p0.999:  46077.312 ns/op
+                 p0.9999: 4123835.597 ns/op
+                 p1.00:   7651328.000 ns/op
+
+Iteration   4: 1185.678 ±(99.9%) 150.640 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   500.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1200.000 ns/op
+                 p0.999:  22490.432 ns/op
+                 p0.9999: 2052903.322 ns/op
+                 p1.00:   10600448.000 ns/op
+
+Iteration   5: 1521.044 ±(99.9%) 210.579 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   600.000 ns/op
+                 p0.95:   700.000 ns/op
+                 p0.99:   1200.000 ns/op
+                 p0.999:  41292.288 ns/op
+                 p0.9999: 3040365.773 ns/op
+                 p1.00:   9338880.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 3529229
+  mean =   1861.861 ±(99.9%) 125.998 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 3528480 
+    [ 2500000.000,  5000000.000) = 615 
+    [ 5000000.000,  7500000.000) = 107 
+    [ 7500000.000, 10000000.000) = 16 
+    [10000000.000, 12500000.000) = 7 
+    [12500000.000, 15000000.000) = 0 
+    [15000000.000, 17500000.000) = 0 
+    [17500000.000, 20000000.000) = 2 
+    [20000000.000, 22500000.000) = 2 
+    [22500000.000, 25000000.000) = 0 
+    [25000000.000, 27500000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =    100.000 ns/op
+     p(50.0000) =    200.000 ns/op
+     p(90.0000) =    600.000 ns/op
+     p(95.0000) =    700.000 ns/op
+     p(99.0000) =   1200.000 ns/op
+     p(99.9000) =  80896.000 ns/op
+     p(99.9900) = 3465531.392 ns/op
+     p(99.9990) = 7155018.957 ns/op
+     p(99.9999) = 18855313.080 ns/op
+    p(100.0000) = 22151168.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = TOKEN_BUCKET, keys = HOT, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 75.00% complete, ETA 00:00:34
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 4981.182 ±(99.9%) 492.895 ns/op
+# Warmup Iteration   2: 6944.936 ±(99.9%) 308.899 ns/op
+# Warmup Iteration   3: 9705.198 ±(99.9%) 389.333 ns/op
+Iteration   1: 8782.094 ±(99.9%) 280.707 ns/op
+                 p0.00:   100.000 ns/op
+                 p0.50:   900.000 ns/op
+                 p0.90:   2900.000 ns/op
+                 p0.95:   5200.000 ns/op
+                 p0.99:   345088.000 ns/op
+                 p0.999:  790528.000 ns/op
+                 p0.9999: 1429055.898 ns/op
+                 p1.00:   4022272.000 ns/op
+
+Iteration   2: 6513.116 ±(99.9%) 261.446 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   300.000 ns/op
+                 p0.90:   1300.000 ns/op
+                 p0.95:   2400.000 ns/op
+                 p0.99:   230400.000 ns/op
+                 p0.999:  646016.000 ns/op
+                 p0.9999: 1842918.400 ns/op
+                 p1.00:   9207808.000 ns/op
+
+Iteration   3: 3593.262 ±(99.9%) 118.572 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   300.000 ns/op
+                 p0.90:   1100.000 ns/op
+                 p0.95:   2000.000 ns/op
+                 p0.99:   165888.000 ns/op
+                 p0.999:  304128.000 ns/op
+                 p0.9999: 736825.344 ns/op
+                 p1.00:   7593984.000 ns/op
+
+Iteration   4: 4481.401 ±(99.9%) 145.885 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   1400.000 ns/op
+                 p0.95:   2400.000 ns/op
+                 p0.99:   188160.000 ns/op
+                 p0.999:  396579.840 ns/op
+                 p0.9999: 874582.016 ns/op
+                 p1.00:   2113536.000 ns/op
+
+Iteration   5: 4492.647 ±(99.9%) 151.847 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   400.000 ns/op
+                 p0.90:   1400.000 ns/op
+                 p0.95:   2600.000 ns/op
+                 p0.99:   184576.000 ns/op
+                 p0.999:  355248.128 ns/op
+                 p0.9999: 782217.626 ns/op
+                 p1.00:   3444736.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 2904712
+  mean =   5522.402 ±(99.9%) 90.066 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  1000000.000) = 2904236 
+    [ 1000000.000,  2000000.000) = 385 
+    [ 2000000.000,  3000000.000) = 51 
+    [ 3000000.000,  4000000.000) = 14 
+    [ 4000000.000,  5000000.000) = 10 
+    [ 5000000.000,  6000000.000) = 11 
+    [ 6000000.000,  7000000.000) = 3 
+    [ 7000000.000,  8000000.000) = 1 
+    [ 8000000.000,  9000000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =        ≈ 0 ns/op
+     p(50.0000) =    400.000 ns/op
+     p(90.0000) =   1700.000 ns/op
+     p(95.0000) =   2900.000 ns/op
+     p(99.0000) = 203264.000 ns/op
+     p(99.9000) = 579584.000 ns/op
+     p(99.9900) = 1143866.778 ns/op
+     p(99.9990) = 3824891.822 ns/op
+     p(99.9999) = 6860254.519 ns/op
+    p(100.0000) = 9207808.000 ns/op
+
+
+# JMH version: 1.37
+# VM version: JDK 25.0.5.1, OpenJDK 64-Bit Server VM, 25.0.5.1+2-LTS
+# VM invoker: C:\Program Files\Eclipse Adoptium\jdk-25.0.5.10002-hotspot\bin\java.exe
+# VM options: -Xms2g -Xmx2g
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 2 s each
+# Measurement: 5 iterations, 2 s each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency
+# Parameters: (algorithm = TOKEN_BUCKET, keys = SPREAD, limit = 1000, spreadKeys = 1048576, windowMs = 1000)
+
+# Run progress: 87.50% complete, ETA 00:00:17
+# Fork: 1 of 1
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/D:/Projects/SD_Portfolio_Projects/rate-limiter/benchmarks/jmh/target/benchmarks.jar)
+WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+# Warmup Iteration   1: 2836.344 ±(99.9%) 1059.470 ns/op
+# Warmup Iteration   2: 1353.754 ±(99.9%) 563.637 ns/op
+# Warmup Iteration   3: 794.399 ±(99.9%) 248.150 ns/op
+Iteration   1: 913.154 ±(99.9%) 323.286 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   700.000 ns/op
+                 p0.95:   900.000 ns/op
+                 p0.99:   1500.000 ns/op
+                 p0.999:  27680.000 ns/op
+                 p0.9999: 889297.306 ns/op
+                 p1.00:   30048256.000 ns/op
+
+Iteration   2: 845.694 ±(99.9%) 264.984 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   700.000 ns/op
+                 p0.95:   900.000 ns/op
+                 p0.99:   1500.000 ns/op
+                 p0.999:  29184.000 ns/op
+                 p0.9999: 515366.656 ns/op
+                 p1.00:   22937600.000 ns/op
+
+Iteration   3: 799.277 ±(99.9%) 248.492 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   700.000 ns/op
+                 p0.95:   1000.000 ns/op
+                 p0.99:   1600.000 ns/op
+                 p0.999:  27584.000 ns/op
+                 p0.9999: 553124.966 ns/op
+                 p1.00:   18317312.000 ns/op
+
+Iteration   4: 602.734 ±(99.9%) 122.707 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   700.000 ns/op
+                 p0.95:   1000.000 ns/op
+                 p0.99:   1500.000 ns/op
+                 p0.999:  26496.000 ns/op
+                 p0.9999: 311884.186 ns/op
+                 p1.00:   10207232.000 ns/op
+
+Iteration   5: 711.972 ±(99.9%) 224.414 ns/op
+                 p0.00:   ≈ 0 ns/op
+                 p0.50:   200.000 ns/op
+                 p0.90:   700.000 ns/op
+                 p0.95:   900.000 ns/op
+                 p0.99:   1400.000 ns/op
+                 p0.999:  20253.824 ns/op
+                 p0.9999: 283337.318 ns/op
+                 p1.00:   24444928.000 ns/op
+
+
+
+Result "com.portfolio.ratelimiter.bench.InMemoryLimiterBenchmark.latency":
+  N = 3078228
+  mean =    771.974 ±(99.9%) 110.246 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 3078098 
+    [ 2500000.000,  5000000.000) = 66 
+    [ 5000000.000,  7500000.000) = 21 
+    [ 7500000.000, 10000000.000) = 17 
+    [10000000.000, 12500000.000) = 7 
+    [12500000.000, 15000000.000) = 4 
+    [15000000.000, 17500000.000) = 4 
+    [17500000.000, 20000000.000) = 7 
+    [20000000.000, 22500000.000) = 1 
+    [22500000.000, 25000000.000) = 2 
+    [25000000.000, 27500000.000) = 0 
+    [27500000.000, 30000000.000) = 0 
+    [30000000.000, 32500000.000) = 1 
+    [32500000.000, 35000000.000) = 0 
+    [35000000.000, 37500000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =        ≈ 0 ns/op
+     p(50.0000) =    200.000 ns/op
+     p(90.0000) =    700.000 ns/op
+     p(95.0000) =    900.000 ns/op
+     p(99.0000) =   1500.000 ns/op
+     p(99.9000) =  26176.000 ns/op
+     p(99.9900) = 424901.376 ns/op
+     p(99.9990) = 8672153.764 ns/op
+     p(99.9999) = 22729963.963 ns/op
+    p(100.0000) = 30048256.000 ns/op
+
+
+# Run complete. Total time: 00:02:16
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                                            (algorithm)  (keys)  (limit)  (spreadKeys)  (windowMs)    Mode      Cnt         Score     Error  Units
+InMemoryLimiterBenchmark.latency                    FIXED_WINDOW     HOT     1000       1048576        1000  sample  2835703      5100.737 ± 101.461  ns/op
+InMemoryLimiterBenchmark.latency:p0.00              FIXED_WINDOW     HOT     1000       1048576        1000  sample                    ≈ 0            ns/op
+InMemoryLimiterBenchmark.latency:p0.50              FIXED_WINDOW     HOT     1000       1048576        1000  sample                500.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90              FIXED_WINDOW     HOT     1000       1048576        1000  sample               1700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95              FIXED_WINDOW     HOT     1000       1048576        1000  sample               2800.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99              FIXED_WINDOW     HOT     1000       1048576        1000  sample             206336.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999             FIXED_WINDOW     HOT     1000       1048576        1000  sample             468480.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999            FIXED_WINDOW     HOT     1000       1048576        1000  sample            1204224.000            ns/op
+InMemoryLimiterBenchmark.latency:p1.00              FIXED_WINDOW     HOT     1000       1048576        1000  sample           23560192.000            ns/op
+InMemoryLimiterBenchmark.latency                    FIXED_WINDOW  SPREAD     1000       1048576        1000  sample  2664785      1662.983 ± 123.261  ns/op
+InMemoryLimiterBenchmark.latency:p0.00              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample                100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.50              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample                200.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample                500.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample                600.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample               1100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999             FIXED_WINDOW  SPREAD     1000       1048576        1000  sample              43675.392            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999            FIXED_WINDOW  SPREAD     1000       1048576        1000  sample            2738438.963            ns/op
+InMemoryLimiterBenchmark.latency:p1.00              FIXED_WINDOW  SPREAD     1000       1048576        1000  sample           16728064.000            ns/op
+InMemoryLimiterBenchmark.latency              SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample  3090386     10984.745 ± 297.597  ns/op
+InMemoryLimiterBenchmark.latency:p0.00        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample                100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.50        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample               1000.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample               1700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample               2500.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample             334848.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999       SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample            1681408.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999      SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample            7085762.970            ns/op
+InMemoryLimiterBenchmark.latency:p1.00        SLIDING_WINDOW_LOG     HOT     1000       1048576        1000  sample           35913728.000            ns/op
+InMemoryLimiterBenchmark.latency              SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample  3965273      2136.798 ± 109.132  ns/op
+InMemoryLimiterBenchmark.latency:p0.00        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample                    ≈ 0            ns/op
+InMemoryLimiterBenchmark.latency:p0.50        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample                400.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample                900.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample               1100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample               1800.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999       SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample             122460.928            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999      SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample            2959247.770            ns/op
+InMemoryLimiterBenchmark.latency:p1.00        SLIDING_WINDOW_LOG  SPREAD     1000       1048576        1000  sample           30179328.000            ns/op
+InMemoryLimiterBenchmark.latency          SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample  2901675     10232.739 ± 177.756  ns/op
+InMemoryLimiterBenchmark.latency:p0.00    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample                100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.50    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample                900.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample               2700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample               4496.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample             375808.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999   SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample            1036288.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999  SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample            2267811.021            ns/op
+InMemoryLimiterBenchmark.latency:p1.00    SLIDING_WINDOW_COUNTER     HOT     1000       1048576        1000  sample           18546688.000            ns/op
+InMemoryLimiterBenchmark.latency          SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample  3529229      1861.861 ± 125.998  ns/op
+InMemoryLimiterBenchmark.latency:p0.00    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample                100.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.50    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample                200.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample                600.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample                700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample               1200.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999   SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample              80896.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999  SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample            3465531.392            ns/op
+InMemoryLimiterBenchmark.latency:p1.00    SLIDING_WINDOW_COUNTER  SPREAD     1000       1048576        1000  sample           22151168.000            ns/op
+InMemoryLimiterBenchmark.latency                    TOKEN_BUCKET     HOT     1000       1048576        1000  sample  2904712      5522.402 ±  90.066  ns/op
+InMemoryLimiterBenchmark.latency:p0.00              TOKEN_BUCKET     HOT     1000       1048576        1000  sample                    ≈ 0            ns/op
+InMemoryLimiterBenchmark.latency:p0.50              TOKEN_BUCKET     HOT     1000       1048576        1000  sample                400.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90              TOKEN_BUCKET     HOT     1000       1048576        1000  sample               1700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95              TOKEN_BUCKET     HOT     1000       1048576        1000  sample               2900.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99              TOKEN_BUCKET     HOT     1000       1048576        1000  sample             203264.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999             TOKEN_BUCKET     HOT     1000       1048576        1000  sample             579584.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999            TOKEN_BUCKET     HOT     1000       1048576        1000  sample            1143866.778            ns/op
+InMemoryLimiterBenchmark.latency:p1.00              TOKEN_BUCKET     HOT     1000       1048576        1000  sample            9207808.000            ns/op
+InMemoryLimiterBenchmark.latency                    TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample  3078228       771.974 ± 110.246  ns/op
+InMemoryLimiterBenchmark.latency:p0.00              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample                    ≈ 0            ns/op
+InMemoryLimiterBenchmark.latency:p0.50              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample                200.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.90              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample                700.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.95              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample                900.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.99              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample               1500.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.999             TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample              26176.000            ns/op
+InMemoryLimiterBenchmark.latency:p0.9999            TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample             424901.376            ns/op
+InMemoryLimiterBenchmark.latency:p1.00              TOKEN_BUCKET  SPREAD     1000       1048576        1000  sample           30048256.000            ns/op
+
+Benchmark result is saved to D:\Projects\SD_Portfolio_Projects\rate-limiter\benchmarks\results\jmh\20261126-231420\inmemory-latency-t12.json

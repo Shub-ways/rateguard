@@ -1,0 +1,33 @@
+﻿{
+    "started":  "2026-11-26T23:46:55.9929712+05:30",
+    "gitCommit":  "3a89f54f4168db6d34eb5942e062aa12b33bab5f",
+    "gitDirty":  true,
+    "cpu":  "13th Gen Intel(R) Core(TM) i5-1335U",
+    "docker":  "29.9.3",
+    "dockerVm":  "cpus=12 mem=8177586176",
+    "k6Image":  "grafana/k6:1.4.0",
+    "appImage":  "sha256:164bee1f73c5e43b166fdd09a91051b5c2bfd0db1589d3d99c6355765f16cd90 created 2026-11-26T17:23:18.159758516Z",
+    "containerLimits":  "app: 2 CPU / 1 GiB each; redis: 1 CPU; proxy: 1 CPU; k6: 4 CPU",
+    "capacity":  {
+                     "clients":  50,
+                     "trials":  1,
+                     "duration":  "5s",
+                     "limit":  "1000000000 per 60s",
+                     "scenarios":  [
+                                       "B",
+                                       "D"
+                                   ],
+                     "stackWarmup":  "5s at 25 VUs",
+                     "vus":  [
+                                 10
+                             ],
+                     "warmup":  "3s"
+                 },
+    "correctness":  {
+                        "vus":  50,
+                        "trials":  3,
+                        "requests":  1000,
+                        "limit":  "100 per 60s"
+                    },
+    "finished":  "2026-11-26T23:48:24.7155468+05:30"
+}

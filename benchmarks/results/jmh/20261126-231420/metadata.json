@@ -1,0 +1,14 @@
+﻿{
+    "started":  "2026-11-26T23:14:22.2739820+05:30",
+    "gitCommit":  "3a89f54f4168db6d34eb5942e062aa12b33bab5f",
+    "gitDirty":  false,
+    "cpu":  "13th Gen Intel(R) Core(TM) i5-1335U",
+    "logicalProcessors":  12,
+    "ramGiB":  15.7,
+    "os":  "Microsoft Windows 11 Home Single Language 26300",
+    "powerPlan":  "Balanced",
+    "java":  "openjdk version 25.0.5.1 2026-11-17 LTS",
+    "backgroundCpuPercentAtStart":  37,
+    "quick":  false,
+    "finished":  "2026-11-26T23:32:52.6527107+05:30"
+}

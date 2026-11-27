@@ -15,7 +15,7 @@
 
     <groupId>com.portfolio</groupId>
     <artifactId>rateguard-parent</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>RateGuard</name>
     <description>Rate-limiting algorithms with in-memory and distributed backends</description>
@@ -24,6 +24,7 @@
         <module>rateguard-core</module>
         <module>rateguard-redis</module>
         <module>rateguard-service</module>
+        <module>benchmarks/jmh</module>
     </modules>
 
     <properties>

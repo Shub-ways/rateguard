@@ -1,0 +1,32 @@
+﻿{
+    "started":  "2026-11-27T08:22:04.7829655+05:30",
+    "gitCommit":  "89e59746b6a1f1c8e84d25a8a1f940cbe9a52719",
+    "gitDirty":  true,
+    "cpu":  "13th Gen Intel(R) Core(TM) i5-1335U",
+    "docker":  "29.9.3",
+    "dockerVm":  "cpus=12 mem=8177586176",
+    "k6Image":  "grafana/k6:1.4.0",
+    "appImage":  "rateguard-service:before-fix sha256:da6912d8a348e1f074ef4dd172e55982c2a37984e149911966fd8a8be927914d created 2026-11-26T17:23:18.159758516Z",
+    "containerLimits":  "app: 2 CPU / 1 GiB each; redis: 1 CPU; proxy: 1 CPU; k6: 4 CPU",
+    "capacity":  {
+                     "clients":  50,
+                     "trials":  3,
+                     "duration":  "30s",
+                     "limit":  "1000000000 per 60s",
+                     "scenarios":  [
+                                       "C"
+                                   ],
+                     "stackWarmup":  "120s at 25 VUs",
+                     "vus":  [
+                                 50
+                             ],
+                     "warmup":  "15s"
+                 },
+    "correctness":  {
+                        "vus":  50,
+                        "trials":  3,
+                        "requests":  1000,
+                        "limit":  "100 per 60s"
+                    },
+    "finished":  "2026-11-27T08:26:44.1924545+05:30"
+}
