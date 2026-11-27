@@ -2,8 +2,10 @@
 
 Short version: a k6 benchmark showed the Redis-backed limiter stuck at
 about 1,200 req/s. Thread dumps traced it to lock contention inside
-Spring Data Redis's script handling, not to Redis. A 70-line change roughly
-doubled throughput in a controlled before/after measurement.
+Spring Data Redis's script handling, not to Redis. A small change (one new
+class; 72 lines added, 6 removed in `ca9bf13`) roughly doubled **the Redis
+path's throughput in one benchmark scenario**, measured with a controlled
+before/after design.
 
 All numbers come from a 15 W laptop (i5-1335U) with each app container
 capped at 2 CPUs. Raw data and method are in [BENCHMARKS.md](BENCHMARKS.md).
@@ -24,7 +26,10 @@ had to be inside the app.
 
 ## 2. Diagnosis
 
-Three thread dumps (`kill -3`) taken during a 25-VU load on scenario C:
+Three thread dumps (`kill -3`) taken during a 25-VU load on scenario C.
+The counts below were taken from the dumps at the time, but the raw dump
+files weren't saved, so this step is documented rather than reproducible
+from committed files. Re-running the same commands reproduces it.
 
 - **47 of 81** sampled request threads (`http-nio-8080-exec-*`) were parked
   on a `ReentrantLock` in `DefaultRedisScript.getSha1()`.

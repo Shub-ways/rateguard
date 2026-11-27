@@ -101,8 +101,10 @@ the time needed to fill the bucket, so long idle periods cannot overflow.
   decision for every request. Moving the clock read outside the lock makes
   this test fail for all four algorithms.
 - Hot-key contention: all requests for one key serialize on one bin lock. That
-  is inherent to exact per-key counting; it will be quantified in the JMH
-  milestone (single hot key vs. many keys).
+  is inherent to exact per-key counting. Measured with JMH: one hot key gets
+  about 26M decisions/s on 1 thread but only 5–7M on 12 threads, while
+  independent keys reach 17–35M on 12 threads (see
+  [BENCHMARKS.md](BENCHMARKS.md)).
 - The same guarantee holds end to end over HTTP: `ConcurrentHttpTest` sends
   400 concurrent requests through Tomcat, and each accepted request receives
   a distinct `X-RateLimit-Remaining` value.
